@@ -10,6 +10,12 @@ L'architettura segue il pattern client-server con due entità distinte:
 * **Frontend:** Vue.js + Vite + Pinia (State Management).
 * **Backend:** Node.js + Express + MySQL.
 
+## 🎨 Mockup & Design
+
+Il design dell'interfaccia utente (UI) e il flusso dell'esperienza utente (UX) sono stati progettati su Canva. Puoi visualizzare il prototipo interattivo al seguente link:
+
+👉 **[Visualizza il Mockup Completo su Canva](https://www.canva.com/design/DAG5nGBXND4/Boom0zBj1rBkACGib-mlAg/edit?utm_content=DAG5nGBXND4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)**
+
 ## 🚀 Tecnologie Utilizzate
 
 * **Frontend:** Vue 3, Tailwind CSS, Chart.js (o D3.js), Axios.
