@@ -6,24 +6,21 @@ import { useAuthStore } from '../stores/auth'
 const router = useRouter()
 const authStore = useAuthStore()
 
-// Variabili reattive per il form
 const email = ref('')
 const password = ref('')
+const errorMessage = ref('')
 
-// Funzione di Login (simulata per ora)
 const handleLogin = async () => {
-  // 1. Qui in futuro chiameremo il backend vero
-  console.log("Tentativo di login con:", email.value, password.value)
+  errorMessage.value = ''
   
-  // 2. Simuliamo un login di successo salvando dati finti nello store
-  // (Così puoi entrare nella dashboard anche senza backend per ora)
-  const fakeUser = { nome: 'Mario', cognome: 'Rossi', matricola: '00012345' }
-  const fakeToken = '123456789-fake-token'
+  // Chiama l'azione login dello store
+  const success = await authStore.login(email.value, password.value)
   
-  authStore.login(fakeToken, fakeUser)
-  
-  // 3. Reindirizza alla Home (Dashboard)
-  router.push('/home')
+  if (success) {
+    router.push('/home')
+  } else {
+    errorMessage.value = authStore.error
+  }
 }
 </script>
 
@@ -46,10 +43,14 @@ const handleLogin = async () => {
         
         <h2 class="text-3xl font-bold text-center mb-8">Accedi a StudentHub</h2>
         
+        <div v-if="errorMessage" class="bg-red-500 text-white p-3 rounded mb-4 text-center text-sm font-bold">
+          {{ errorMessage }}
+        </div>
+
         <form @submit.prevent="handleLogin" class="space-y-6">
           
           <div>
-            <label class="block text-sm font-medium mb-2">Inserisci la tua mail</label>
+            <label class="block text-sm font-medium mb-2 pl-1">Inserisci la tua mail</label>
             <input 
               v-model="email"
               type="email" 
@@ -60,7 +61,7 @@ const handleLogin = async () => {
           </div>
 
           <div>
-            <label class="block text-sm font-medium mb-2">Inserisci la tua password</label>
+            <label class="block text-sm font-medium mb-2 pl-1">Inserisci la tua password</label>
             <input 
               v-model="password"
               type="password" 
@@ -72,9 +73,10 @@ const handleLogin = async () => {
 
           <button 
             type="submit"
-            class="w-full bg-[#3b76ad] hover:bg-[#2c5a85] text-white font-bold py-3 rounded-full shadow-lg transition transform hover:scale-105 mt-4"
+            :disabled="authStore.loading"
+            class="w-full bg-[#3b76ad] hover:bg-[#2c5a85] disabled:opacity-50 text-white font-bold py-3 rounded-full shadow-lg transition transform hover:scale-105 mt-4"
           >
-            Accedi a StudentHub
+            {{ authStore.loading ? 'Accesso in corso...' : 'Accedi a StudentHub' }}
           </button>
         </form>
 
