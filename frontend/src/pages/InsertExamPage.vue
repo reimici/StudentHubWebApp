@@ -61,7 +61,7 @@ const submitExams = async () => {
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col bg-[#f8f9fa] font-sans">
+  <div class="flex-grow flex flex-col bg-[#f8f9fa] font-sans">
     
     <NavBar />
 
