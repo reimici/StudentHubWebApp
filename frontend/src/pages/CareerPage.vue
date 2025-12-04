@@ -157,7 +157,7 @@ onMounted(async () => {
       </div>
 
       <div v-else-if="exams.length === 0" class="text-center py-16 bg-white rounded-3xl border-2 border-dashed border-gray-300">
-        <p class="text-2xl text-gray-400 font-bold mb-4">Nessun esame trovato 🧐</p>
+        <p class="text-2xl text-gray-400 font-bold mb-4">Nessun esame trovato</p>
         <p class="text-gray-500">Prova a cambiare i filtri o inserisci un nuovo esame.</p>
       </div>
 
