@@ -19,6 +19,7 @@ const routes = [
   { path: '/', name: 'Landing', component: LandingPage, meta: { public: true } },
   { path: '/login', name: 'Login', component: LoginPage, meta: { public: true } },
   { path: '/register', name: 'Register', component: RegisterPage, meta: { public: true } },
+  {path: '/about', name: 'About', component: AboutPage, meta: { public: true } }, // <--- AGGIUNGI QUESTO
   
   // Rotte Protette (Richiedono Login)
   { path: '/home', name: 'Home', component: HomePage },
