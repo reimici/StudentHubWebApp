@@ -12,9 +12,10 @@ const StatsPage = () => import('../pages/StatsPage.vue')
 const ObjectivesPage = () => import('../pages/ObjectivesPage.vue')
 const AdminPage = () => import('../pages/AdminPage.vue')
 const NotFound = () => import('../pages/NotFound.vue')
-const SettingsPage = () => import('../pages/SettingsPage.vue') // <--- AGGIUNGI QUESTO
-const AboutPage = () => import('../pages/AboutPage.vue') // <--- AGGIUNGI QUESTO
-const ContactPage = () => import('../pages/ContactPage.vue') // <--- AGGIUNTO
+const SettingsPage = () => import('../pages/SettingsPage.vue')
+const AboutPage = () => import('../pages/AboutPage.vue')
+const ContactPage = () => import('../pages/ContactPage.vue')
+const PrivacyPage = () => import('../pages/PrivacyPage.vue')
 
 const routes = [
   { path: '/', name: 'Landing', component: LandingPage, meta: { public: true } },
@@ -31,7 +32,8 @@ const routes = [
   { path: '/objectives', name: 'Objectives', component: ObjectivesPage },
   { path: '/admin', name: 'Admin', component: AdminPage },
   { path: '/settings', name: 'Settings', component: SettingsPage },
-
+  { path: '/privacy', name: 'Privacy', component: PrivacyPage, meta: { public: true } },
+  
   // Catch-all per 404
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound }
 ]
