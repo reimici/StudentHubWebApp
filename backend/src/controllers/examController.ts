@@ -2,17 +2,39 @@ import { Request, Response } from 'express';
 import { pool } from '../config/db';
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
 
-// GET: Ottieni tutti gli esami
+// GET: Ottieni esami con Filtri e Ordinamento
 export const getExams = async (req: Request, res: Response) => {
     try {
-        // req.user esiste perchè definito nel middleware 'protect'
         if (!req.user) return res.status(401).json({ message: 'Utente non autenticato' });
 
-        const [exams] = await pool.query(
-            'SELECT * FROM esami WHERE id_utente = ? ORDER BY data DESC', 
-            [req.user.id]
-        );
+        // 1. Estraiamo i parametri dalla query string
+        const { sortBy, order, year } = req.query;
+
+        // 2. Whitelist per sicurezza (evita SQL Injection sui nomi colonna)
+        const validSortFields = ['data', 'voto', 'cfu', 'nome'];
+        const validOrderDirs = ['ASC', 'DESC'];
+
+        // 3. Impostiamo i default se i parametri mancano o sono errati
+        // Default: Ordina per data, Decrescente (dal più recente)
+        const sortField = validSortFields.includes(sortBy as string) ? sortBy : 'data';
+        const orderDir = validOrderDirs.includes((order as string)?.toUpperCase()) ? (order as string).toUpperCase() : 'DESC';
+
+        // 4. Costruzione Query Dinamica
+        let query = 'SELECT * FROM esami WHERE id_utente = ?';
+        const queryParams: any[] = [req.user.id];
+
+        // Se c'è un anno specifico (e non è "all"), aggiungiamo il filtro
+        if (year && year !== 'all') {
+            query += ' AND YEAR(data) = ?';
+            queryParams.push(year);
+        }
+
+        // Aggiungiamo l'ordinamento alla fine
+        query += ` ORDER BY ${sortField} ${orderDir}`;
+
+        const [exams] = await pool.query(query, queryParams);
         res.json(exams);
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Errore nel recupero esami' });
