@@ -13,11 +13,19 @@
         <span class="text-2xl font-bold tracking-wide">StudentHub</span>
       </div>
     </header>    
+
     <NavBar />
-    
 
     <main class="flex-grow container mx-auto px-4 py-12 max-w-4xl">
       
+      <div class="mb-8">
+        <router-link to="/" class="inline-flex items-center gap-2 text-gray-600 hover:text-[#3b76ad] transition font-bold text-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Torna alla Home
+        </router-link>
+      </div>
       <div class="mb-10 border-b border-gray-300 pb-6">
         <h1 class="text-4xl font-extrabold text-[#3b76ad] mb-2">Termini e Condizioni</h1>
         <p class="text-gray-600">Ultimo aggiornamento: 04 Dicembre 2025</p>
@@ -76,8 +84,6 @@
       </div>
 
     </main>
-
-    
 
   </div>
 </template>
