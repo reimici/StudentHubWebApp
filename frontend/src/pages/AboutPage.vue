@@ -34,10 +34,6 @@ import NavBar from '../components/NavBar.vue'
                 Appassionato di sviluppo Backend e architetture software. 
                 In questo progetto si è occupato principalmente della gestione del database e delle API.
               </p>
-              <div class="mt-4 flex gap-4">
-                <a href="#" class="text-[#3b76ad] font-bold hover:underline">LinkedIn</a>
-                <a href="#" class="text-[#3b76ad] font-bold hover:underline">GitHub</a>
-              </div>
             </div>
           </div>
         </div>
@@ -58,10 +54,6 @@ import NavBar from '../components/NavBar.vue'
                 e l'interfaccia utente (UI), trasformando i mockup in codice Vue.js reattivo.
                 Il suo obiettivo è rendere l'università meno stressante con un design pulito.
               </p>
-              <div class="mt-4 flex gap-4">
-                <a href="#" class="text-[#3b76ad] font-bold hover:underline">LinkedIn</a>
-                <a href="#" class="text-[#3b76ad] font-bold hover:underline">GitHub</a>
-              </div>
             </div>
           </div>
         </div>
@@ -82,10 +74,6 @@ import NavBar from '../components/NavBar.vue'
                 Ha lavorato sulla logica di calcolo delle statistiche e sulla sicurezza dell'autenticazione.
                 Sempre pronto a risolvere bug complessi e ottimizzare le performance.
               </p>
-              <div class="mt-4 flex gap-4">
-                <a href="#" class="text-[#3b76ad] font-bold hover:underline">LinkedIn</a>
-                <a href="#" class="text-[#3b76ad] font-bold hover:underline">GitHub</a>
-              </div>
             </div>
           </div>
         </div>
