@@ -40,7 +40,7 @@
           <h3 class="text-xl font-bold text-[#151e2b]">Diego Andruccioli</h3>
           <p class="text-sm text-[#3b76ad] font-bold mb-4">Backend Developer</p>
           <div class="space-y-3 text-sm">
-             <a href="mailto:diego.andruccioli@studio.unibo.it" class="block bg-gray-50 py-2 px-4 rounded-lg text-gray-700 hover:bg-[#3b76ad] hover:text-white transition truncate">diego.andruccioli@...</a>
+             <a href="mailto:diego.andruccioli@studio.unibo.it" class="block bg-gray-50 py-2 px-4 rounded-lg text-gray-700 hover:bg-[#3b76ad] hover:text-white transition truncate">diego.andruccioli@studio.unibo.it</a>
           </div>
         </div>
         <div class="bg-white border-2 border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition text-center group">
@@ -50,7 +50,7 @@
           <h3 class="text-xl font-bold text-[#151e2b]">Rei Mici</h3>
           <p class="text-sm text-[#3b76ad] font-bold mb-4">Frontend & Design</p>
           <div class="space-y-3 text-sm">
-             <a href="mailto:rei.mici@studio.unibo.it" class="block bg-gray-50 py-2 px-4 rounded-lg text-gray-700 hover:bg-[#3b76ad] hover:text-white transition truncate">rei.mici@studio.unibo.it</a>
+             <a href="mailto:rei.mici@studio.unibo.it" class="block bg-gray-50 py-2 px-4 rounded-lg text-gray-700 hover:bg-[#3b76ad] hover:text-white transition truncate">rei.mici2@studio.unibo.it</a>
           </div>
         </div>
          <div class="bg-white border-2 border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition text-center group">
@@ -60,21 +60,10 @@
           <h3 class="text-xl font-bold text-[#151e2b]">Giovanni Morelli</h3>
           <p class="text-sm text-[#3b76ad] font-bold mb-4">Full Stack & Security</p>
           <div class="space-y-3 text-sm">
-             <a href="mailto:giovanni.morelli@studio.unibo.it" class="block bg-gray-50 py-2 px-4 rounded-lg text-gray-700 hover:bg-[#3b76ad] hover:text-white transition truncate">giovanni.morelli@...</a>
+             <a href="mailto:giovanni.morelli@studio.unibo.it" class="block bg-gray-50 py-2 px-4 rounded-lg text-gray-700 hover:bg-[#3b76ad] hover:text-white transition truncate">giovanni.morelli8@studio.unibo.it</a>
           </div>
         </div>
       </div>
-
-      <div class="mt-16 text-center">
-        <h2 class="text-2xl font-bold text-[#151e2b] mb-4">Supporto Tecnico</h2>
-        <div class="bg-[#151e2b] text-white p-6 rounded-2xl inline-block shadow-lg max-w-lg w-full">
-          <p class="mb-4 text-gray-300">Per segnalazioni di bug o problemi con la piattaforma:</p>
-          <a href="mailto:support@studenthub.unibo.it" class="text-2xl font-bold text-[#3b76ad] hover:text-white transition">
-            support@studenthub.unibo.it
-          </a>
-        </div>
-      </div>
-
     </main>
   </div>
 </template>

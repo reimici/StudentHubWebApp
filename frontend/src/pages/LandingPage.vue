@@ -1,6 +1,3 @@
-<script setup>
-</script>
-
 <template>
   <div class="flex-grow flex flex-col font-sans">
     
@@ -17,15 +14,15 @@
     <main class="flex-grow flex flex-col items-center justify-center text-center px-4 relative">
       
       <h1 class="text-5xl md:text-6xl font-extrabold text-black leading-tight mb-2">
-        Il tuo futuro accademico,
+        Il tuo futuro universitario,
       </h1>
       <h1 class="text-5xl md:text-6xl font-extrabold text-[#3b76ad] leading-tight mb-8">
         costruito insieme.
       </h1>
 
       <p class="text-gray-600 text-lg md:text-xl max-w-3xl leading-relaxed mb-10">
-        Analizza i tuoi risultati, visualizza le tue statistiche e raggiungi i tuoi obiettivi <br class="hidden md:block">
-        <span class="text-[#3b76ad]">con StudentHub</span>. La tua carriera universitaria in un colpo d'occhio
+        Analizza i tuoi risultati, visualizza le tue statistiche e raggiungi i tuoi obiettivi<br class="hidden md:block"> con
+        <span class="text-[#3b76ad]"> StudentHub</span>. La tua carriera universitaria in un colpo d'occhio
       </p>
 
       <router-link 

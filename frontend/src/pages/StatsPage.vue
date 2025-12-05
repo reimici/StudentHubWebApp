@@ -134,7 +134,7 @@ onMounted(async () => {
       </div>
 
       <div v-else-if="!chartData.labels.length" class="text-center py-20 bg-white rounded-3xl border-2 border-gray-200 shadow-sm">
-        <p class="text-2xl text-gray-400 font-bold mb-4">Non ci sono ancora dati sufficienti 📉</p>
+        <p class="text-2xl text-gray-400 font-bold mb-4">Non ci sono ancora dati sufficienti</p>
         <router-link to="/career/insert" class="text-[#3b76ad] font-bold hover:underline mt-2 inline-block px-6 py-2 bg-blue-50 rounded-full transition">
           Inserisci il tuo primo esame
         </router-link>
