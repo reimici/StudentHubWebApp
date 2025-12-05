@@ -6,7 +6,6 @@ import NavBar from '../components/NavBar.vue' // Se vuoi la navbar utente
 <template>
   <div class="flex-grow flex flex-col font-sans">
   
-
     <NavBar />
 
     <main class="flex-grow container mx-auto px-4 py-12 max-w-4xl">
@@ -21,7 +20,7 @@ import NavBar from '../components/NavBar.vue' // Se vuoi la navbar utente
       </div>
 
       <div class="text-center mb-12">
-        <h1 class="text-4xl md:text-5xl font-extrabold text-[#3b76ad] mb-4">Chi Siamo</h1>
+        <h1 class="text-4xl font-extrabold text-[#3b76ad] mb-4">Chi Siamo</h1>
         <p class="text-xl text-gray-600">
           Il team di sviluppo dietro <span class="font-bold text-[#151e2b]">StudentHub</span>.
         </p>
