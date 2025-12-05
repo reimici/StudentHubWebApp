@@ -86,12 +86,12 @@ const save = async () => {
 
           <label class="flex-1 cursor-pointer group">
             <input type="radio" v-model="form.tema_voti" value="RGB" class="hidden peer">
-            <div class="border-2 border-gray-200 rounded-xl p-4 peer-checked:border-green-500 peer-checked:bg-green-50 transition text-center hover:bg-gray-50 h-full flex flex-col justify-center items-center">
+            <div class="border-2 border-gray-200 rounded-xl p-4 peer-checked:border-[#3b76ad] peer-checked:bg-blue-50 transition text-center hover:bg-gray-50 h-full flex flex-col justify-center items-center">
               <div class="font-bold text-gray-700 mb-2">Dinamico (RGB)</div>
               <div class="flex justify-center gap-2">
-                <div class="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-xs shadow-md">18</div>
-                <div class="w-8 h-8 bg-yellow-400 text-black rounded-full flex items-center justify-center font-bold text-xs shadow-md">24</div>
-                <div class="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-xs shadow-md">30</div>
+                <div class="w-12 h-12 bg-red-500 text-black rounded-full flex items-center justify-center font-bold text-lg shadow-md">18</div>
+                <div class="w-12 h-12 bg-yellow-400 text-black rounded-full flex items-center justify-center font-bold text-lg shadow-md">24</div>
+                <div class="w-12 h-12 bg-green-600 text-black rounded-full flex items-center justify-center font-bold text-lg shadow-md">30</div>
               </div>
             </div>
           </label>
