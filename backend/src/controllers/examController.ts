@@ -35,7 +35,9 @@ export const getExams = async (req: Request, res: Response) => {
     }
 };
 
-// POST: Aggiungi esame (BATCH - Lista di esami)
+import { checkBadges } from './gamificationController';
+
+// POST: Aggiungi esame (max 5 esami)
 export const addExam = async (req: Request, res: Response) => {
     const connection = await pool.getConnection();
     try {
@@ -80,12 +82,16 @@ export const addExam = async (req: Request, res: Response) => {
             [totalXp, req.user.id]
         );
 
+        // --- GAMIFICATION CHECK ---
+        const newBadges = await checkBadges(req.user.id, connection);
+
         await connection.commit();
 
         res.status(201).json({ 
             message: 'Esami aggiunti con successo!', 
             ids: insertedIds,
-            xp_guadagnati: totalXp 
+            xp_totali_guadagnati: totalXp,
+            nuovi_badge: newBadges // Restituisce i badge appena sbloccati
         });
 
     } catch (error) {
