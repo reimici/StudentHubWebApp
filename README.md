@@ -23,7 +23,6 @@ StudentHub è un'applicazione web sviluppata per il corso di *Ingegneria dei Sis
 5. [API Endpoints](#-api-endpoints)
 6. [Installazione e Avvio](#-installazione-e-avvio)
 7. [Team di Sviluppo](#-team-di-sviluppo)
-8. [Licenza](#-licenza)
 
 ---
 
@@ -150,3 +149,21 @@ npm install
 # Creare un file .env basato sulle proprie configurazioni (vedi .env.example se presente)
 # DB_HOST=localhost, DB_USER=root, DB_NAME=studenthub_db...
 npm run dev
+```
+
+### 3. Setup Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+---
+
+## 👥 Team di Sviluppo
+
+Progetto sviluppato per il corso Ingegneria dei Sistemi Web anno accademico 2025/2026:
+
+* **Diego Andruccioli** 
+* **Rei Mici** 
+* **Giacomo Masi** 
