@@ -12,7 +12,7 @@
         </svg>
         <span class="text-2xl font-bold tracking-wide">StudentHub</span>
       </div>
-    </header>    
+    </header>     
 
     <main class="flex-grow container mx-auto px-4 py-12 max-w-5xl">
       
