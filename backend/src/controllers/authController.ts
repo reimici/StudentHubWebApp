@@ -83,17 +83,3 @@ export const logout = (req: Request, res: Response) => {
     });
     res.status(200).json({ success: true, message: 'Logout effettuato' });
 };
-
-// --- GET CURRENT USER ---
-export const getMe = async (req: Request, res: Response) => {
-    // Il middleware protect ha già popolato req.user
-    if (!req.user) {
-        return res.status(401).json({ message: 'Non autenticato' });
-    }
-    
-    // Restituiamo i dati dell'utente (senza password ovviamente, ma req.user di solito è pulito o viene dalla query select specifica)
-    res.status(200).json({
-        success: true,
-        user: req.user
-    });
-};
