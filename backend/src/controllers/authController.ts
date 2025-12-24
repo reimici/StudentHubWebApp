@@ -1,8 +1,6 @@
 import { Request, Response } from 'express';
-import { pool } from '../config/db';
-import bcrypt from 'bcrypt';
 import { sendTokenResponse } from '../utils/jwt';
-import { ResultSetHeader, RowDataPacket } from 'mysql2';
+import { authService } from '../services/authService';
 
 // --- REGISTRAZIONE ---
 export const register = async (req: Request, res: Response) => {
@@ -13,36 +11,14 @@ export const register = async (req: Request, res: Response) => {
             return res.status(400).json({ message: 'Tutti i campi sono obbligatori' });
         }
 
-        const [existingUsers] = await pool.query<RowDataPacket[]>(`
-            SELECT * 
-            FROM utenti 
-            WHERE email = ?
-        `, [email]);
-        if (existingUsers.length > 0) {
-            return res.status(409).json({ message: 'Email già registrata' });
-        }
-
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
-
-        const [result] = await pool.query<ResultSetHeader>(`
-            INSERT INTO utenti (nome, cognome, email, password) 
-            VALUES (?, ?, ?, ?)
-        `, [nome, cognome, email, hashedPassword]);
-
-        const user = {
-            id: result.insertId,
-            nome,
-            cognome,
-            email,
-            ruolo: '0',
-            xp_totali: 0
-        };
-
+        const user = await authService.register({ nome, cognome, email, password });
         sendTokenResponse(user, 201, res);
 
-    } catch (error) {
+    } catch (error: any) {
         console.error('Errore register:', error);
+        if (error.message === 'Email già registrata') {
+            return res.status(409).json({ message: error.message });
+        }
         res.status(500).json({ message: 'Errore del server' });
     }
 };
@@ -56,21 +32,14 @@ export const login = async (req: Request, res: Response) => {
             return res.status(400).json({ message: 'Inserisci email e password' });
         }
 
-        const [users] = await pool.query<RowDataPacket[]>(`
-            SELECT * 
-            FROM utenti 
-            WHERE email = ?
-        `, [email]);
-        const user = users[0];
-
-        if (!user || !(await bcrypt.compare(password, user.password))) {
-            return res.status(401).json({ message: 'Credenziali non valide' });
-        }
-
+        const user = await authService.login({ email, password });
         sendTokenResponse(user, 200, res);
 
-    } catch (error) {
+    } catch (error: any) {
         console.error('Errore login:', error);
+        if (error.message === 'Credenziali non valide') {
+            return res.status(401).json({ message: error.message });
+        }
         res.status(500).json({ message: 'Errore del server' });
     }
 };
