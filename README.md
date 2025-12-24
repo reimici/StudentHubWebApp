@@ -1,242 +1,267 @@
 # StudentHub
 
-![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vue.js&logoColor=4FC08D)
-![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
-![Express.js](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)
-![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
-
-> **Piattaforma web gamificata per la gestione della carriera universitaria.**
-
-StudentHub è un'applicazione web sviluppata per il corso di *Ingegneria dei Sistemi Web* presso l'Alma Mater Studiorum - Università di Bologna. Il progetto mira a trasformare la gestione degli esami universitari in un'esperienza coinvolgente attraverso meccaniche di **Gamification** e **Data Visualization**.
-
----
-
-## 📑 Indice
-
-1. [Descrizione del Progetto](#-descrizione-del-progetto)
-2. [Architettura e Tecnologie](#-architettura-e-tecnologie)
-3. [Struttura del Progetto](#-struttura-del-progetto)
-4. [Installazione e Avvio](#-installazione-e-avvio)
-5. [Database Schema](#-database-schema)
-6. [API Endpoints](#-api-endpoints)
-7. [Mockup & Design](#-mockup--design)
-8. [Team di Sviluppo](#-team-di-sviluppo)
+## Table of Contents
+1. [Introduzione](#introduzione)
+2. [Features per Utenti](#features-per-utenti)
+3. [Features per Admin e SuperAdmin](#features-per-admin-e-superadmin)
+4. [Tecnologie Utilizzate](#tecnologie-utilizzate)
+5. [Pacchetti Installati](#pacchetti-installati)
+6. [Struttura del Progetto](#struttura-del-progetto)
+7. [Installazione](#installazione)
+8. [API Endpoints](#api-endpoints)
+9. [Database](#database)
+10. [Color Accessibility](#color-accessibility)
+11. [Documentazione e Mockup](#documentazione-e-mockup)
+12. [Team di Sviluppo](#team-di-sviluppo)
 
 ---
 
-## 📋 Descrizione del Progetto
+## Introduzione
+StudentHub e una piattaforma web progettata per la gestione della carriera universitaria, sviluppata nell'ambito del corso di Ingegneria dei Sistemi Web presso l'Alma Mater Studiorum - Universita di Bologna.
+L'obiettivo principale del progetto e trasformare la classica gestione del libretto universitario in un'esperienza interattiva e coinvolgente, integrando elementi di Gamification e visualizzazione dati avanzata.
 
-L'applicazione permette agli studenti di monitorare il proprio andamento accademico, visualizzare statistiche avanzate (media ponderata, proiezioni di laurea) e competere in una classifica globale basata su Punti Esperienza (XP).
-
-### Funzionalità Principali
-
-* **Gestione Carriera:** Inserimento, visualizzazione ed eliminazione degli esami sostenuti con calcolo automatico della media.
-* **Gamification:** Sistema di livelli, barra di progresso XP e badge sbloccabili (obiettivi) in base ai risultati ottenuti.
-* **Statistiche:** Grafici interattivi per visualizzare l'andamento dei voti nel tempo.
-* **Leaderboard:** Classifica globale aggiornata in tempo reale per confrontarsi con altri studenti.
-* **Personalizzazione:** Possibilità di modificare il tema dell'interfaccia (es. modalità semaforo RGB per i voti) tramite le impostazioni utente.
-* **Amministrazione:** Pannello dedicato agli amministratori per la gestione dell'utenza e la visualizzazione di statistiche globali.
+Il sistema adotta un'architettura disaccoppiata (Client-Server), garantendo scalabilita e mantenibilita del codice.
 
 ---
 
-## 🏗 Architettura e Tecnologie
+## Features per Utenti
+Gli utenti standard (Studenti) hanno accesso alle seguenti funzionalita:
 
-Il progetto segue un'architettura **Client-Server** disaccoppiata, comunicante tramite API RESTful.
-
-### Frontend (Client-Side)
-Sviluppato con **Vue.js 3** (Composition API) e **Vite** per garantire prestazioni elevate.
-* **State Management:** Pinia (per la gestione di utente, autenticazione e impostazioni).
-* **Routing:** Vue Router (con Navigation Guards per la protezione delle rotte).
-* **UI/UX:** Tailwind CSS per lo styling responsive.
-* **Visualizzazione Dati:** Chart.js per la generazione dei grafici.
-* **HTTP Client:** Axios.
-
-### Backend (Server-Side)
-Sviluppato in **Node.js** con framework **Express** e linguaggio **TypeScript**.
-* **Sicurezza:** Autenticazione tramite **JWT (JSON Web Token)** salvati in cookie `HttpOnly` e hashing delle password con **Bcrypt**.
-* **Database:** Interazione con MySQL tramite il driver `mysql2` e gestione delle connessioni con Connection Pool.
+* **Gestione Carriera**: Possibilita di aggiungere, modificare ed eliminare gli esami sostenuti, specificando voto, crediti (CFU) e data.
+* **Dashboard Statistica**: Visualizzazione di grafici interattivi che mostrano l'andamento della media nel tempo, la distribuzione dei voti e la proiezione del voto di laurea.
+* **Gamification**: Sistema di progressione basato su Punti Esperienza (XP). Ogni esame superato conferisce XP in base al voto e ai crediti.
+* **Badge e Obiettivi**: Sblocco automatico di riconoscimenti (badge) al raggiungimento di determinati traguardi (es. "Primo 30", "Media del 28").
+* **Classifica (Leaderboard)**: Possibilita di confrontare il proprio punteggio XP con quello degli altri studenti registrati alla piattaforma.
+* **Impostazioni Personalizzate**: Gestione delle preferenze di visualizzazione, inclusa la modifica delle soglie di colore per i voti.
 
 ---
 
-## 📂 Struttura del Progetto
+## Features per Admin e SuperAdmin
+Il sistema prevede ruoli amministrativi con privilegi elevati:
+
+* **Admin**:
+    * Accesso alla lista completa degli utenti registrati.
+    * Visualizzazione di statistiche globali della piattaforma (es. numero totale di esami registrati).
+    * Accesso a una classifica globale non anonimizzata.
+
+* **SuperAdmin**:
+    * Comprende tutte le funzionalita dell'Admin.
+    * Gestione dei ruoli utente (promozione e retrocessione).
+    * Creazione di nuovi account amministrativi.
+    * Eliminazione di account amministrativi.
+
+---
+
+## Tecnologie Utilizzate
+
+### Frontend
+Il client e sviluppato utilizzando le seguenti tecnologie:
+* **Vue.js** (v3.5.24): Framework progressivo per interfacce utente.
+* **Vite** (v7.2.4): Build tool di nuova generazione per frontend rapidi.
+* **Tailwind CSS** (v4.1.18): Framework CSS utility-first per lo styling.
+* **JavaScript (ES6+)**: Logica applicativa.
+
+### Backend
+Il server e sviluppato utilizzando:
+* **Node.js**: Runtime JavaScript lato server.
+* **Express.js** (v4.19.2): Web framework per Node.js.
+* **TypeScript** (v5.4.5): Superset tipizzato di JavaScript per una maggiore robustezza del codice.
+
+### Database
+* **MySQL**: Database relazionale per la persistenza dei dati.
+
+### Containerizzazione
+* **Docker & Docker Compose**: Per l'orchestrazione dell'ambiente di sviluppo.
+
+---
+
+## Pacchetti Installati
+
+Di seguito vengono elencati i principali pacchetti di terze parti utilizzati, con il relativo comando di installazione e descrizione.
+
+### Frontend
+Installazione dipendenze: `npm install`
+
+* **axios** (`^1.13.2`)
+  Libreria per effettuare richieste HTTP (API Client) verso il backend in modo centralizzato.
+* **pinia** (`^3.0.4`)
+  Store manager ufficiale per Vue.js, utilizzato per la gestione dello stato globale (es. dati utente, autenticazione).
+* **vue-router** (`^4.6.3`)
+  Gestore ufficiale del routing per Vue.js, permette la navigazione tra le pagine dell'applicazione (SPA).
+* **chart.js** (`^4.5.1`) e **vue-chartjs** (`^5.3.3`)
+  Librerie per la creazione di grafici statistici interattivi e responsivi.
+* **tailwindcss** (`^4.1.18`) e **@tailwindcss/postcss**
+  Motore per la generazione dei fogli di stile utility-first.
+
+### Backend
+Installazione dipendenze: `npm install`
+
+* **express** (`^4.19.2`)
+  Core framework per la creazione del server web e la gestione delle rotte API.
+* **mysql2** (`^3.9.7`)
+  Driver client ottimizzato per la connessione e l'interazione con il database MySQL.
+* **bcrypt** (`^5.1.1`)
+  Libreria per l'hashing sicuro delle password prima del salvataggio nel database.
+* **jsonwebtoken** (`^9.0.2`)
+  Strumento per la generazione e validazione dei token JWT per l'autenticazione stateless.
+* **cors** (`^2.8.5`)
+  Middleware per abilitare e configurare il Cross-Origin Resource Sharing.
+* **dotenv** (`^16.4.5`)
+  Modulo per caricare le variabili d'ambiente da un file `.env` (configurazioni sensibili).
+* **cookie-parser** (`^1.4.6`)
+  Middleware per analizzare i cookie nelle richieste HTTP.
+
+---
+
+## Struttura del Progetto
 
 ```text
 StudentHub/
-├── .git/
-├── .gitignore             # File per escludere node_modules e file di sistema
-├── .dockerignore          # File esclusi dal contesto Docker
-├── docker-compose.yml     # Orchestrazione container (Backend + Frontend + DB)
-├── LICENSE                # Licenza MIT del progetto
-├── README.md              # Documentazione principale
+├── backend/                   # Logica Server
+│   ├── src/
+│   │   ├── config/            # Configurazioni DB e variabili ambiente
+│   │   ├── controllers/       # Gestione richieste HTTP (Entry point logico)
+│   │   ├── middleware/        # Controlli intermedi (es. Autenticazione)
+│   │   ├── routes/            # Definizione degli endpoint API
+│   │   ├── services/          # Logica di business e accesso ai dati
+│   │   ├── types/             # Definizioni dei tipi TypeScript
+│   │   └── utils/             # Funzioni di utilita (es. JWT helper)
+│   ├── sql/                   # Script di inizializzazione DB
+│   ├── package.json
+│   └── server.ts              # Entry point applicazione backend
 │
-├── backend/               # Logica Server (Express + MySQL)
-│   ├── Dockerfile         # Definizione immagine Docker Backend
-│   ├── .env.example       # Template configurazione sicura
-│   ├── .env               # Password DB (IGNORATO DA GIT)
-│   ├── package.json       # Dipendenze backend
-│   ├── server.ts          # Entry point del server API
-│   │
-│   ├── sql/               # Script Database
-│   │   ├── init.sql       # Script creazione Tabelle
-│   │   └── seed.sql       # Dati di prova iniziali
-│   │
-│   └── src/               # Codice sorgente Backend
-│       ├── config/        # Configurazione DB
-│       ├── controllers/   # Logica di business
-│       ├── middleware/    # Protezione rotte (JWT)
-│       └── routes/        # Definizione endpoint API
+├── frontend/                  # Interfaccia Utente
+│   ├── src/
+│   │   ├── api/               # Configurazione Client HTTP (Axios)
+│   │   ├── assets/            # Risorse statiche
+│   │   ├── components/        # Componenti Vue riutilizzabili
+│   │   ├── pages/             # Viste principali dell'applicazione
+│   │   ├── router/            # Configurazione rotte
+│   │   ├── stores/            # Gestione stato (Pinia)
+│   │   ├── App.vue            # Componente Root
+│   │   ├── main.js            # Entry point applicazione frontend
+│   │   └── style.css          # Stili globali e configurazione Tailwind
+│   ├── package.json
+│   └── vite.config.js
 │
-└── frontend/              # Interfaccia Utente (Vue.js + Vite)
-    ├── Dockerfile         # Definizione immagine Docker Frontend
-    ├── index.html         # Entry point HTML
-    ├── package.json       # Dipendenze frontend
-    ├── vite.config.js     # Configurazione Vite
-    │
-    └── src/
-        ├── App.vue        # Componente Root
-        ├── main.js        # Entry point JavaScript
-        ├── style.css      # Stili globali (Tailwind)
-        │
-        ├── api/           # Chiamate HTTP (Axios)
-        ├── assets/        # Immagini e icone
-        ├── components/    # Componenti riutilizzabili (NavBar, Card...)
-        ├── pages/         # Viste principali (Home, Login, Dashboard...)
-        ├── router/        # Gestione navigazione
-        └── stores/        # State Management (Pinia)
+├── docker-compose.yml         # Configurazione Container
+└── README.md                  # Documentazione progetto
 ```
 
 ---
 
-## 🛠 Installazione e Avvio
+## Installazione
 
-### 🐳 Installazione e Avvio Rapido (Consigliato)
+E possibile avviare il progetto tramite Docker (consigliato per compatibilita universale) o manualmente clonando la repository.
 
-Se hai **Docker** installato, puoi avviare l'intero progetto con un singolo comando, senza dover installare Node.js o MySQL manualmente.
+### Metodo 1: Docker (Windows, Mac, Linux)
+Requisiti: Docker Desktop installato.
 
-1.  Assicurati che Docker Desktop sia in esecuzione.
-2.  Dalla root del progetto, esegui:
-```bash
-docker compose up --build
-```
-3.  Attendi qualche istante. Una volta terminato, l'app sarà disponibile su:
-    *   **Frontend:** [http://localhost:5173](http://localhost:5173)
-    *   **Backend API:** [http://localhost:3000](http://localhost:3000)
-    *   **Database:** Accessibile sulla porta 3306
+1. Aprire il terminale nella cartella principale del progetto.
+2. Eseguire il comando:
+   ```bash
+   docker compose up --build
+   ```
+3. Il sistema sara accessibile ai seguenti indirizzi:
+   * Frontend: `http://localhost:5173`
+   * Backend: `http://localhost:3000`
 
-> **Nota:** Il database viene inizializzato automaticamente con i dati di prova al primo avvio.
+### Metodo 2: Installazione Manuale
 
-### 🛠 Installazione Manuale
+**Prerequisiti**: Node.js v18+, MySQL Server in esecuzione.
 
-Prerequisiti: **Node.js** (v18+) e **MySQL Server** installati.
+1. **Configurazione Database**:
+   Eseguire gli script presenti in `backend/sql/` nel proprio client MySQL:
+   * Prima `init.sql` (Creazione schema)
+   * Poi `seed.sql` (Popolamento dati iniziali)
 
-#### 1. Configurazione Database
-Eseguire gli script SQL presenti nella cartella `/backend/sql` nel seguente ordine:
-1.  `init.sql`: Crea il database, le tabelle e i trigger.
-2.  `seed.sql`: Popola il database con dati di prova (livelli, obiettivi, utenti demo).
+2. **Setup Backend**:
+   ```bash
+   cd backend
+   npm install
+   cp .env.example .env
+   # Modificare .env con le credenziali del proprio database MySQL locale
+   npm run dev
+   ```
 
-#### 2. Setup Backend
-```bash
-cd backend
-npm install
-# Configurare il file .env partendo dall'esempio
-cp .env.example .env
-
-# NOTA IMPORTANTE SULLA PASSWORD DEL DATABASE:
-# - Il file .env.example è pre-configurato con password VUOTA (DB_PASSWORD=) per l'uso locale.
-# - Se usi Docker, la password sarà automaticamente 'root' (sovrascritta da docker-compose).
-# - Se hai una password diversa sulla tua macchina locale, aggiorna il file .env appena creato.
-npm run dev
-```
-
-#### 3. Setup Frontend
-```bash
-cd frontend
-npm install
-npm run dev
-```
+3. **Setup Frontend**:
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
 
 ---
 
-## 🗄 Database Schema
+## API Endpoints
 
-Il database relazionale **MySQL** è strutturato nelle seguenti tabelle principali:
+Il backend espone le seguenti API RESTful.
 
-1.  **`utenti`**: Gestione credenziali, anagrafica, ruolo (Studente/Admin) e XP totali.
-2.  **`esami`**: Storico degli esami sostenuti, collegati all'utente tramite Foreign Key. Include un vincolo `CHECK` per voti tra 18 e 30.
-3.  **`livelli`**: Tabella di lookup per determinare il livello utente in base agli intervalli di XP.
-4.  **`obiettivi`**: Catalogo dei badge ottenibili (es. "Primo 30", "Giro di Boa").
-5.  **`obiettivi_sbloccati`**: Tabella ponte (molti-a-molti) che collega utenti e obiettivi conseguiti.
-6.  **`impostazioni_utente`**: Preferenze grafiche dell'utente (es. soglie colori voti), generata automaticamente via **Trigger** alla registrazione.
+### AUTH
+* `POST /api/auth/register`: Registrazione nuovo utente.
+* `POST /api/auth/login`: Autenticazione utente.
+* `POST /api/auth/logout`: Disconnessione.
 
----
+### EXAMS
+* `GET /api/exams`: Lista esami dell'utente loggato (filtri supportati).
+* `POST /api/exams`: Aggiunta di nuovi esami.
+* `PUT /api/exams/:id`: Modifica di un esame esistente.
+* `DELETE /api/exams/:id`: Rimozione di un esame.
 
-## 🔌 API Endpoints
+### STATS & USERS
+* `GET /api/stats`: Statistiche aggregate (media, base laurea, proiezioni).
+* `GET /api/users/leaderboard`: Classifica globale utenti.
 
-Il backend espone le seguenti API REST. Tutte le rotte (eccetto Auth) sono protette da middleware di autenticazione.
+### GAMIFICATION
+* `GET /api/gamification/status`: Livello e progressi XP correnti.
+* `GET /api/gamification/badges`: Catalogo obiettivi disponibili.
+* `GET /api/gamification/my-badges`: Obiettivi sbloccati dall'utente.
 
-### 🔐 Autenticazione (`/api/auth`)
-| Metodo | Endpoint | Descrizione |
-| :--- | :--- | :--- |
-| **POST** | `/register` | Registrazione nuovo utente e creazione settings di default. |
-| **POST** | `/login` | Accesso e rilascio token JWT (HttpOnly cookie). |
-| **POST** | `/logout` | Invalidazione sessione e rimozione cookie. |
+### SETTINGS
+* `GET /api/settings`: Recupero preferenze utente.
+* `PUT /api/settings`: Aggiornamento preferenze.
 
-### 🎓 Esami (`/api/exams`)
-| Metodo | Endpoint | Descrizione |
-| :--- | :--- | :--- |
-| **GET** | `/` | Recupera la lista esami. Supporta query params per filtri: `?sortBy=data&order=DESC&year=2024`. |
-| **POST** | `/` | Inserisce una lista di nuovi esami e calcola gli XP guadagnati. |
-| **DELETE** | `/:id` | Elimina un esame specifico e ricalcola gli XP totali. |
-
-### 📊 Statistiche e Utenti (`/api/stats`, `/api/users`)
-| Metodo | Endpoint | Descrizione |
-| :--- | :--- | :--- |
-| **GET** | `/api/stats` | Restituisce media aritmetica, ponderata, base di laurea e dati per i grafici. |
-| **GET** | `/api/users/leaderboard` | Restituisce la classifica globale degli studenti ordinata per XP. |
-
-### 🏆 Gamification (`/api/gamification`)
-| Metodo | Endpoint | Descrizione |
-| :--- | :--- | :--- |
-| **GET** | `/status` | Restituisce il livello corrente, XP totali e la percentuale di progresso al livello successivo. |
-| **GET** | `/badges` | Restituisce il catalogo completo degli obiettivi. |
-| **GET** | `/my-badges` | Restituisce solo gli obiettivi già sbloccati dall'utente. |
-
-### ⚙️ Impostazioni (`/api/settings`)
-| Metodo | Endpoint | Descrizione |
-| :--- | :--- | :--- |
-| **GET** | `/` | Recupera le preferenze utente (tema voti, soglie RGB). |
-| **PUT** | `/` | Aggiorna le preferenze utente. |
-
-### 🛡️ Admin (`/api/admin`)
-| Metodo | Endpoint | Descrizione |
-| :--- | :--- | :--- |
-| **GET** | `/users` | Lista completa di tutti gli utenti registrati. |
-| **GET** | `/stats/exam-count` | Statistiche sul numero totale di esami inseriti. |
-| **GET** | `/stats/ranking` | Visualizzazione classifica globale lato admin. |
-| **PUT** | `/users/:id/role` | (SuperAdmin) Modifica il ruolo di un utente. |
-| **POST** | `/register` | (SuperAdmin) Creazione manuale di nuovi account Admin. |
-| **DELETE** | `/users/:id` | (SuperAdmin) Elimina un account amministratore. |
+### ADMIN
+* `GET /api/admin/users`: Lista completa utenti.
+* `PUT /api/admin/users/:id/role`: Modifica ruolo utente.
+* `DELETE /api/admin/users/:id`: Eliminazione admin.
 
 ---
 
-## 🎨 Mockup & Design
+## Database
 
-Il design dell'interfaccia utente (UI) e il flusso dell'esperienza utente (UX) sono stati realizzati a cura di **Rei Mici**.
+Il sistema utilizza un database relazionale MySQL composto dalle seguenti entita:
 
-Qui puoi consultare l'evoluzione grafica del progetto:
-
-* 👉 **[Primo Mockup (Pre-revisione)](https://www.canva.com/design/DAG5nGBXND4/Boom0zBj1rBkACGib-mlAg/edit?utm_content=DAG5nGBXND4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)**: La bozza iniziale presentata e discussa in aula con professori e colleghi.
-* 👉 **[Mockup Finale (Definitivo)](https://www.canva.com/design/DAG6QVv9ajQ/6sjTh2q4dOybFtLEprm3mQ/edit?utm_content=DAG6QVv9ajQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)**: La versione aggiornata e consolidata in seguito ai feedback ricevuti.
+* **Utenti**: Memorizza credenziali, dati anagrafici e progressi di gamification (XP).
+* **Esami**: Memorizza i singoli esami sostenuti, collegati agli utenti. Include vincoli di integrita per i voti.
+* **Livelli**: Tabella di configurazione per le soglie di livello basate sugli XP.
+* **Obiettivi**: Tabella di configurazione dei badge ottenibili.
+* **Obiettivi_Sbloccati**: Tabella di associazione che traccia i badge ottenuti dagli utenti.
+* **Impostazioni_Utente**: Memorizza le preferenze di visualizzazione per ogni utente.
 
 ---
 
-## 👥 Team di Sviluppo
+## Color Accessibility
 
-Progetto sviluppato per il corso Ingegneria dei Sistemi Web anno accademico 2025/2026:
+Il progetto pone attenzione all'accessibilita visiva attraverso l'uso di token semantici definiti nel design system.
+Non vengono utilizzati colori hardcoded, ma variabili CSS (es. `--color-primary`, `--color-accent`) che garantiscono coerenza in tutta l'applicazione.
+L'utente ha inoltre la possibilita di personalizzare la visualizzazione dei voti tramite le impostazioni, scegliendo tra temi diversi o adattando le soglie cromatiche (es. "Semaforo") alle proprie necessita visive.
+
+---
+
+## Documentazione e Mockup
+
+Di seguito sono riportati i link ai mockup grafici del progetto, che illustrano l'evoluzione dal concept iniziale al prodotto finale.
+
+* **Mockup Iniziale (Concept)**: [Visualizza su Canva](https://www.canva.com/design/DAG5nGBXND4/Boom0zBj1rBkACGib-mlAg/edit?utm_content=DAG5nGBXND4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+* **Mockup Finale (Prodotto)**: [Visualizza su Canva](https://www.canva.com/design/DAG6QVv9ajQ/6sjTh2q4dOybFtLEprm3mQ/edit?utm_content=DAG6QVv9ajQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+
+---
+
+## Team di Sviluppo
+
+Progetto realizzato dagli studenti del corso di Ingegneria dei Sistemi Web 2025/2026:
 
 * **Diego Andruccioli**
 * **Rei Mici**
-* **Giovanni Morelli** 
+* **Giovanni Morelli**
