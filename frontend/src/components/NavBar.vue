@@ -18,7 +18,7 @@ const goToSettings = () => {
 </script>
 
 <template>
-  <nav class="bg-[#151e2b] text-white py-4 px-8 shadow-md flex justify-between items-center relative z-50">
+  <nav class="bg-secondary text-white py-4 px-8 shadow-md flex justify-between items-center relative z-50">
     
     <div @click="router.push('/home')" class="flex items-center gap-3 cursor-pointer hover:opacity-90 transition">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="currentColor" viewBox="0 0 24 24">

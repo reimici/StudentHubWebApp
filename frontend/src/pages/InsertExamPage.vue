@@ -91,7 +91,7 @@ const submitExams = async () => {
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col bg-[#f8f9fa] font-sans">
+  <div class="min-h-screen flex flex-col bg-background-light font-sans">
     
     <NavBar />
 
@@ -100,18 +100,18 @@ const submitExams = async () => {
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
           <nav class="text-sm text-gray-500 mb-2 font-medium">
-            <router-link to="/career" class="hover:text-[#3b76ad]">Carriera</router-link> 
+            <router-link to="/career" class="hover:text-primary">Carriera</router-link> 
             <span class="mx-2">></span>
-            <span class="text-[#3b76ad] font-bold">Inserisci Esame</span>
+            <span class="text-primary font-bold">Inserisci Esame</span>
           </nav>
-          <h1 class="text-4xl font-bold text-[#3b76ad] mb-2">Nuovo Inserimento</h1>
+          <h1 class="text-4xl font-bold text-primary mb-2">Nuovo Inserimento</h1>
           <p class="text-xl font-bold text-black">Aggiungi fino a 5 esami contemporaneamente</p>
         </div>
 
         <button 
           @click="submitExams" 
           :disabled="loading"
-          class="bg-[#3b76ad] hover:bg-[#2c5a85] disabled:opacity-50 text-white text-lg font-bold py-3 px-10 rounded-lg shadow-md transition transform hover:scale-105"
+          class="bg-primary hover:bg-primary-dark disabled:opacity-50 text-white text-lg font-bold py-3 px-10 rounded-lg shadow-md transition transform hover:scale-105"
         >
           {{ loading ? 'Salvataggio...' : 'Conferma Inserimento' }}
         </button>
@@ -123,7 +123,7 @@ const submitExams = async () => {
 
       <div class="bg-white border-2 border-gray-200 rounded-xl shadow-sm relative">
         
-        <div class="grid grid-cols-12 gap-2 md:gap-4 bg-[#0f3c66] text-white font-bold py-4 px-4 text-center items-center text-sm md:text-base rounded-t-xl">
+        <div class="grid grid-cols-12 gap-2 md:gap-4 bg-accent text-white font-bold py-4 px-4 text-center items-center text-sm md:text-base rounded-t-xl">
           <div class="col-span-1"></div>
           <div class="col-span-4 text-left pl-2">Esame</div>
           <div class="col-span-2">Voto</div>
@@ -151,32 +151,32 @@ const submitExams = async () => {
             </div>
 
             <div class="col-span-4">
-              <input v-model="row.nome" type="text" placeholder="Nome Esame" class="w-full p-2 border border-gray-300 rounded focus:border-[#3b76ad] focus:ring-1 focus:ring-[#3b76ad] outline-none text-sm md:text-base" />
+              <input v-model="row.nome" type="text" placeholder="Nome Esame" class="w-full p-2 border border-gray-300 rounded focus:border-primary focus:ring-1 focus:ring-primary outline-none text-sm md:text-base" />
             </div>
 
             <div class="col-span-2 flex flex-col md:flex-row items-center justify-center gap-1 md:gap-2">
-              <input v-model="row.voto" type="number" min="18" max="30" placeholder="30" class="w-full md:w-20 p-2 text-center border border-gray-300 rounded focus:border-[#3b76ad] focus:ring-1 focus:ring-[#3b76ad] outline-none text-sm md:text-base" />
+              <input v-model="row.voto" type="number" min="18" max="30" placeholder="30" class="w-full md:w-20 p-2 text-center border border-gray-300 rounded focus:border-primary focus:ring-1 focus:ring-primary outline-none text-sm md:text-base" />
               <label class="flex items-center cursor-pointer text-xs font-bold text-gray-500 select-none" :class="{'opacity-50 cursor-not-allowed': row.voto != 30}">
                 <input 
                   type="checkbox" 
                   v-model="row.lode" 
                   :disabled="row.voto != 30"
-                  class="mr-1 accent-[#3b76ad] w-4 h-4 disabled:cursor-not-allowed"
+                  class="mr-1 accent-primary w-4 h-4 disabled:cursor-not-allowed"
                 > L
               </label>
             </div>
 
             <div class="col-span-3">
-              <input v-model="row.data" type="date" class="w-full p-2 text-center border border-gray-300 rounded focus:border-[#3b76ad] focus:ring-1 focus:ring-[#3b76ad] outline-none text-gray-600 text-sm md:text-base" />
+              <input v-model="row.data" type="date" class="w-full p-2 text-center border border-gray-300 rounded focus:border-primary focus:ring-1 focus:ring-primary outline-none text-gray-600 text-sm md:text-base" />
             </div>
 
             <div class="col-span-2 flex items-center justify-center relative">
-              <input v-model="row.cfu" type="number" min="1" placeholder="6" class="w-full md:w-20 p-2 text-center border border-gray-300 rounded focus:border-[#3b76ad] focus:ring-1 focus:ring-[#3b76ad] outline-none text-sm md:text-base" />
+              <input v-model="row.cfu" type="number" min="1" placeholder="6" class="w-full md:w-20 p-2 text-center border border-gray-300 rounded focus:border-primary focus:ring-1 focus:ring-primary outline-none text-sm md:text-base" />
               
               <button 
                 v-if="index === rows.length - 1 && rows.length < 5"
                 @click="addRow"
-                class="absolute -right-3 md:-right-8 text-[#3b76ad] hover:text-[#2c5a85] transition transform hover:scale-110 bg-white rounded-full z-50 shadow-sm"
+                class="absolute -right-3 md:-right-8 text-primary hover:text-primary-dark transition transform hover:scale-110 bg-white rounded-full z-50 shadow-sm"
                 title="Aggiungi riga"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 md:h-10 md:w-10" viewBox="0 0 20 20" fill="currentColor">

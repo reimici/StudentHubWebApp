@@ -38,7 +38,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="flex-grow flex flex-col bg-[#f8f9fa] font-sans w-full">
+  <div class="flex-grow flex flex-col bg-background-light font-sans w-full">
     
     <NavBar />
 
@@ -46,14 +46,14 @@ onMounted(async () => {
 
       <div class="text-center mb-16 w-full max-w-2xl">
         
-        <h1 class="text-3xl md:text-4xl font-bold italic mb-4 text-[#151e2b]">
+        <h1 class="text-3xl md:text-4xl font-bold italic mb-4 text-secondary">
           <span v-if="loading" class="animate-pulse">Caricamento...</span>
           <span v-else>
             Lv. {{ gamificationData.livello.numero }} - {{ gamificationData.livello.nome }}
           </span>
         </h1>
         
-        <div class="relative w-full md:w-3/4 h-8 bg-gray-300 border-4 border-[#151e2b] rounded-sm mx-auto flex items-center shadow-lg overflow-visible mt-8">
+        <div class="relative w-full md:w-3/4 h-8 bg-gray-300 border-4 border-secondary rounded-sm mx-auto flex items-center shadow-lg overflow-visible mt-8">
           
           <div 
             class="absolute top-1/2 transform -translate-y-1/2 z-10 transition-all duration-1000 ease-out"
@@ -65,7 +65,7 @@ onMounted(async () => {
         </div>
           
           <div 
-            class="h-full bg-[#3b76ad] border-r-4 border-[#151e2b] transition-all duration-1000 ease-out"
+            class="h-full bg-primary border-r-4 border-secondary transition-all duration-1000 ease-out"
             :style="{ width: progressWidth }"
           ></div>
         </div>
@@ -84,30 +84,30 @@ onMounted(async () => {
       <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-20">
         
         <div @click="router.push('/career')" class="flex flex-col items-center group cursor-pointer">
-          <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-[6px] border-[#151e2b] bg-[#3b76ad] flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300 group-hover:bg-[#2c5a85]">
+          <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-[6px] border-secondary bg-primary flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300 group-hover:bg-primary-dark">
             <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
           </div>
-          <h2 class="mt-4 text-2xl font-bold text-[#151e2b] group-hover:text-[#3b76ad] transition">Carriera</h2>
+          <h2 class="mt-4 text-2xl font-bold text-secondary group-hover:text-primary transition">Carriera</h2>
         </div>
 
         <div @click="router.push('/stats')" class="flex flex-col items-center group cursor-pointer">
-          <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-[6px] border-[#151e2b] bg-[#3b76ad] flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300 group-hover:bg-[#2c5a85]">
+          <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-[6px] border-secondary bg-primary flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300 group-hover:bg-primary-dark">
             <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
             </svg>
           </div>
-          <h2 class="mt-4 text-2xl font-bold text-[#151e2b] group-hover:text-[#3b76ad] transition">Statistiche</h2>
+          <h2 class="mt-4 text-2xl font-bold text-secondary group-hover:text-primary transition">Statistiche</h2>
         </div>
 
         <div @click="router.push('/objectives')" class="flex flex-col items-center group cursor-pointer">
-          <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-[6px] border-[#151e2b] bg-[#3b76ad] flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300 group-hover:bg-[#2c5a85]">
+          <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-[6px] border-secondary bg-primary flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300 group-hover:bg-primary-dark">
             <svg class="w-20 h-16 text-white" viewBox="0 0 24 24" fill="currentColor">
               <path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/>
             </svg>
           </div>
-          <h2 class="mt-4 text-2xl font-bold text-[#151e2b] group-hover:text-[#3b76ad] transition">Obiettivi</h2>
+          <h2 class="mt-4 text-2xl font-bold text-secondary group-hover:text-primary transition">Obiettivi</h2>
         </div>
 
       </div>

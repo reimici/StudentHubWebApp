@@ -42,7 +42,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex-grow flex flex-col bg-[#f8f9fa] font-sans min-h-screen">
+  <div class="flex-grow flex flex-col bg-background-light font-sans min-h-screen">
     
     <NavBar />
 
@@ -50,11 +50,11 @@ onMounted(() => {
 
       <div class="mb-8">
         <nav class="text-sm text-gray-500 mb-2 font-medium">
-          <router-link to="/home" class="hover:text-[#3b76ad]">Home</router-link> 
+          <router-link to="/home" class="hover:text-primary">Home</router-link> 
           <span class="mx-2">></span> 
-          <span class="text-[#3b76ad] font-bold">Obiettivi</span>
+          <span class="text-primary font-bold">Obiettivi</span>
         </nav>
-        <h1 class="text-4xl font-bold text-[#3b76ad] mb-1">Obiettivi</h1>
+        <h1 class="text-4xl font-bold text-primary mb-1">Obiettivi</h1>
         <p class="text-xl font-bold text-black">Completa le sfide e competi con gli altri studenti</p>
       </div>
 
@@ -69,10 +69,10 @@ onMounted(() => {
       <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
 
         <div>
-          <h2 class="text-2xl font-bold text-[#151e2b] mb-4">Classifica Studenti</h2>
+          <h2 class="text-2xl font-bold text-secondary mb-4">Classifica Studenti</h2>
           
           <div class="bg-white rounded-xl shadow-sm border border-gray-300 overflow-hidden">
-            <div class="bg-[#3b76ad] text-white font-bold p-4 flex justify-between items-center">
+            <div class="bg-primary text-white font-bold p-4 flex justify-between items-center">
               <span class="w-10 text-center">#</span>
               <span class="flex-grow pl-4">Studente</span>
               <span class="w-20 text-right">XP</span>
@@ -94,13 +94,13 @@ onMounted(() => {
                   <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden border border-gray-300">
                     <img :src="`https://api.dicebear.com/7.x/initials/svg?seed=${user.nome}`" class="w-full h-full object-cover" />
                   </div>
-                  <span class="font-bold text-[#151e2b]">
+                  <span class="font-bold text-secondary">
                     {{ user.nome }}
-                    <span v-if="user.id === authStore.user?.id" class="text-xs text-[#3b76ad] ml-1">(Tu)</span>
+                    <span v-if="user.id === authStore.user?.id" class="text-xs text-primary ml-1">(Tu)</span>
                   </span>
                 </div>
 
-                <div class="w-24 text-right font-bold text-[#151e2b]">
+                <div class="w-24 text-right font-bold text-secondary">
                   <span class="text-black-500 mr-1">{{ user.xp_totali }}</span>
                 </div>
               </div>
@@ -113,10 +113,10 @@ onMounted(() => {
         </div>
 
         <div>
-          <h2 class="text-2xl font-bold text-[#151e2b] mb-4">Obiettivi</h2>
+          <h2 class="text-2xl font-bold text-secondary mb-4">Obiettivi</h2>
           
           <div class="bg-white rounded-xl shadow-sm border border-gray-300 overflow-hidden">
-            <div class="bg-[#3b76ad] text-white font-bold p-4 flex justify-between">
+            <div class="bg-primary text-white font-bold p-4 flex justify-between">
               <span class="flex-grow">Obiettivo</span>
               <span class="w-24 text-right">Premio</span>
             </div>
@@ -133,7 +133,7 @@ onMounted(() => {
                 </div>
 
                 <div class="flex-grow pl-4">
-                  <div class="font-bold text-[#151e2b]">{{ obj.nome }}</div>
+                  <div class="font-bold text-secondary">{{ obj.nome }}</div>
                   <div class="text-xs text-gray-500">{{ obj.descrizione }}</div>
                 </div>
 

@@ -105,7 +105,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="flex-grow flex flex-col bg-[#f8f9fa] font-sans">
+  <div class="flex-grow flex flex-col bg-background-light font-sans">
     
     <NavBar />
 
@@ -113,11 +113,11 @@ onMounted(async () => {
       
       <div class="mb-8">
         <nav class="text-sm text-gray-500 mb-2 font-medium">
-          <router-link to="/home" class="hover:text-[#3b76ad]">Home</router-link> 
+          <router-link to="/home" class="hover:text-primary">Home</router-link> 
           <span class="mx-2">></span> 
-          <span class="text-[#3b76ad] font-bold">Statistiche</span>
+          <span class="text-primary font-bold">Statistiche</span>
         </nav>
-        <h1 class="text-4xl font-bold text-[#3b76ad] mb-1">Statistiche</h1>
+        <h1 class="text-4xl font-bold text-primary mb-1">Statistiche</h1>
         <p class="text-xl font-bold text-black">Diamo un'occhiata ai tuoi risultati!</p>
       </div>
 
@@ -127,7 +127,7 @@ onMounted(async () => {
 
       <div v-else-if="!chartData.labels.length" class="text-center py-20 bg-white rounded-3xl border-2 border-gray-200 shadow-sm">
         <p class="text-2xl text-gray-400 font-bold mb-4">Non ci sono ancora dati sufficienti</p>
-        <router-link to="/career/insert" class="text-[#3b76ad] font-bold hover:underline mt-2 inline-block px-6 py-2 bg-blue-50 rounded-full transition">
+        <router-link to="/career/insert" class="text-primary font-bold hover:underline mt-2 inline-block px-6 py-2 bg-blue-50 rounded-full transition">
           Inserisci il tuo primo esame
         </router-link>
       </div>
@@ -138,14 +138,14 @@ onMounted(async () => {
           
           <div class="bg-white border-2 border-black rounded-2xl p-6 flex items-center gap-6 shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
             <div class="p-4 bg-blue-50 rounded-full">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-[#3b76ad]" viewBox="0 0 24 24" fill="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
                 <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
               </svg>
             </div>
             <div>
               <h3 class="text-lg font-medium text-gray-600">Media Ponderata</h3>
-              <p class="text-4xl font-extrabold text-[#151e2b]">{{ mediaPonderata }}</p>
+              <p class="text-4xl font-extrabold text-secondary">{{ mediaPonderata }}</p>
             </div>
           </div>
 
@@ -159,7 +159,7 @@ onMounted(async () => {
 
             <div>
               <h3 class="text-lg font-medium text-gray-600">CFU Sostenuti</h3>
-              <p class="text-4xl font-extrabold text-[#151e2b]">{{ cfuTotali }}</p>
+              <p class="text-4xl font-extrabold text-secondary">{{ cfuTotali }}</p>
             </div>
           </div>
 
@@ -171,7 +171,7 @@ onMounted(async () => {
             </div>
             <div>
               <h3 class="text-lg font-medium text-gray-600">Base di Laurea</h3>
-              <p class="text-4xl font-extrabold text-[#151e2b]">{{ baseLaurea }}</p>
+              <p class="text-4xl font-extrabold text-secondary">{{ baseLaurea }}</p>
             </div>
           </div>
 
@@ -179,7 +179,7 @@ onMounted(async () => {
 
         <div class="bg-white border-2 border-black rounded-2xl p-6 shadow-md">
           <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold text-[#151e2b]">Andamento Carriera</h2>
+            <h2 class="text-2xl font-bold text-secondary">Andamento Carriera</h2>
           </div>
           
           <div class="h-80 w-full relative">

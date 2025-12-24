@@ -173,7 +173,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="flex-grow flex flex-col bg-[#f8f9fa] font-sans" @click="closeDropdowns">
+  <div class="flex-grow flex flex-col bg-background-light font-sans" @click="closeDropdowns">
     
     <NavBar />
 
@@ -181,13 +181,13 @@ onMounted(async () => {
       
       <div class="mb-8">
         <nav class="text-sm text-gray-500 mb-2 font-medium">
-          <router-link to="/home" class="hover:text-[#3b76ad]">Home</router-link> 
+          <router-link to="/home" class="hover:text-primary">Home</router-link> 
           <span class="mx-2">></span> 
-          <span class="text-[#3b76ad] font-bold">Dashboard Admin</span>
+          <span class="text-primary font-bold">Dashboard Admin</span>
         </nav>
         <div class="flex flex-col md:flex-row justify-between items-end border-b border-gray-300 pb-4 gap-4">
           <div>
-            <h1 class="text-4xl font-bold text-[#151e2b]">Gestione Utenti</h1>
+            <h1 class="text-4xl font-bold text-secondary">Gestione Utenti</h1>
             <p class="text-gray-600 mt-1">Pannello di controllo per la gestione degli iscritti alla piattaforma.</p>
           </div>
           
@@ -199,14 +199,14 @@ onMounted(async () => {
               v-model="searchQuery" 
               type="text" 
               placeholder="Cerca utente..." 
-              class="w-full py-2 pl-10 pr-4 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-[#3b76ad] focus:ring-1 focus:ring-[#3b76ad] transition"
+              class="w-full py-2 pl-10 pr-4 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition"
             >
           </div>
         </div>
       </div>
 
       <div v-if="loading" class="text-center py-20">
-        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-[#3b76ad] mx-auto mb-4"></div>
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
         <p class="text-gray-500">Caricamento dati in corso...</p>
       </div>
 
@@ -230,7 +230,7 @@ onMounted(async () => {
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex items-center gap-4 hover:shadow-md transition">
-            <div class="p-3 bg-blue-50 rounded-full text-[#3b76ad]">
+            <div class="p-3 bg-blue-50 rounded-full text-primary">
               <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
             </div>
             <div>
@@ -264,7 +264,7 @@ onMounted(async () => {
           <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">
               <thead>
-                <tr class="bg-[#151e2b] text-white text-xs uppercase tracking-wider">
+                <tr class="bg-secondary text-white text-xs uppercase tracking-wider">
                   <th class="p-4 font-semibold rounded-tl-lg">ID</th>
                   <th class="p-4 font-semibold">Utente</th>
 
@@ -297,7 +297,7 @@ onMounted(async () => {
                     </span>
                   </td>
                   
-                  <td class="p-4 text-center font-mono font-bold text-[#3b76ad]">
+                  <td class="p-4 text-center font-mono font-bold text-primary">
                     {{ user.xp_totali }} XP
                   </td>
                   
@@ -328,7 +328,7 @@ onMounted(async () => {
                                 <!-- Promuovi/Retrocedi -->
                                 <button 
                                     @click="updateUserRole(user.id, user.ruolo)"
-                                    class="w-full px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-[#3b76ad] flex items-center gap-2"
+                                    class="w-full px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-primary flex items-center gap-2"
                                 >
                                     <svg v-if="user.ruolo === '0'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 11l3-3m0 0l3 3m-3-3v8m0-13a9 9 0 110 18 9 9 0 010-18z"></path></svg>
                                     <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110 18 9 9 0 010-18z"></path></svg>
@@ -378,7 +378,7 @@ onMounted(async () => {
         <div class="relative bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 transform transition-all scale-100">
             <div class="text-center">
                 <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 mb-4">
-                    <svg class="h-6 w-6 text-[#3b76ad]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </div>
@@ -396,7 +396,7 @@ onMounted(async () => {
                 </button>
                 <button 
                     @click="confirmAction"
-                    class="px-4 py-2 bg-[#3b76ad] hover:bg-[#2c5c8f] text-white rounded-lg font-bold shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5 focus:outline-none"
+                    class="px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg font-bold shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5 focus:outline-none"
                 >
                     Conferma
                 </button>
