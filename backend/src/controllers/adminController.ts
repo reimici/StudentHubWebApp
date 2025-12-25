@@ -45,7 +45,12 @@ export const updateUserRole = async (req: Request, res: Response): Promise<void>
     const { nuovo_ruolo } = req.body;
 
     try {
-        const currentUserId = (req as any).user.id;
+        // req.user è ora tipizzato correttamente (UserPayload) grazie a express.d.ts
+        if (!req.user) {
+            res.status(401).json({ message: 'Non autorizzato' });
+            return;
+        }
+        const currentUserId = req.user.id;
         const result = await adminService.updateUserRole(parseInt(id), nuovo_ruolo, currentUserId);
 
         res.status(200).json({ 
@@ -71,7 +76,11 @@ export const deleteAdminAccount = async (req: Request, res: Response): Promise<v
     const userIdToDelete = req.params.id;
 
     try {
-        const currentUserId = (req as any).user.id;
+        if (!req.user) {
+            res.status(401).json({ message: 'Non autorizzato' });
+            return;
+        }
+        const currentUserId = req.user.id;
         await adminService.deleteAdminAccount(parseInt(userIdToDelete), currentUserId);
 
         res.status(200).json({ message: 'Account Admin eliminato con successo.' });

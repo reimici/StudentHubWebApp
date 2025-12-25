@@ -1,4 +1,4 @@
-import { JwtPayload } from 'jsonwebtoken';
+import { UserRole } from './enums';
 
 // Definiamo l'interfaccia (senza password)
 export interface UserPayload {
@@ -6,7 +6,7 @@ export interface UserPayload {
   nome: string;
   cognome: string;
   email: string;
-  ruolo: '0' | '1' | '2'; // '0'=Studente, '1'=Admin, '2'=SuperAdmin
+  ruolo: UserRole; // '0'=Studente, '1'=Admin, '2'=SuperAdmin
   xp_totali: number;
 }
 

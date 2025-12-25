@@ -19,7 +19,8 @@ export const protect = async (req: Request, res: Response, next: NextFunction): 
             }
 
             // il tipo di 'req.user' è gestito dal file express.d.ts
-            req.user = users[0] as any; 
+            // Casting a UserPayload perché RowDataPacket non ha i tipi espliciti
+            req.user = users[0] as unknown as import('../types/express').UserPayload; 
             next();
         } catch (error) {
             console.error(error);

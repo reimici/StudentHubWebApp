@@ -1,5 +1,6 @@
 import { pool } from '../config/db';
 import { RowDataPacket, ResultSetHeader } from 'mysql2';
+import { UserRole } from '../types/enums';
 import bcrypt from 'bcrypt';
 
 export const adminService = {
@@ -46,13 +47,14 @@ export const adminService = {
 
     // Aggiorna ruolo
     async updateUserRole(targetUserId: number, newRole: string, currentUserId: number) {
-        const validRoles = ['0', '1', '2'];
+        // Usa l'Enum per validare i ruoli
+        const validRoles = Object.values(UserRole) as string[];
         if (!validRoles.includes(newRole)) {
-            throw new Error('Ruolo non valido. Ruoli permessi: 0, 1, 2');
+            throw new Error(`Ruolo non valido. Ruoli permessi: ${validRoles.join(', ')}`);
         }
 
         // Impedisce al SuperAdmin di declassarsi da solo per errore
-        if (targetUserId === currentUserId && newRole !== '2') {
+        if (targetUserId === currentUserId && newRole !== UserRole.SUPER_ADMIN) {
              throw new Error('Non puoi rimuovere il tuo stesso ruolo di SuperAdmin.');
         }
 
@@ -78,7 +80,7 @@ export const adminService = {
         const roleToDelete = users[0].ruolo;
 
         // Controlli di sicurezza
-        if (roleToDelete !== '1') {
+        if (roleToDelete !== UserRole.ADMIN) {
             throw new Error('Questa azione è permessa solo per eliminare account Admin (ruolo 1).');
         }
         
@@ -103,7 +105,7 @@ export const adminService = {
         
         const insertQuery = `
             INSERT INTO utenti (nome, cognome, email, password, ruolo) 
-            VALUES (?, ?, ?, ?, '1')
+            VALUES (?, ?, ?, ?, '${UserRole.ADMIN}')
         `;
         const [result] = await pool.query<ResultSetHeader>(insertQuery, [nome, cognome, email, hashedPassword]);
         

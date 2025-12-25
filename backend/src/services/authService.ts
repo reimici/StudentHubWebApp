@@ -1,6 +1,7 @@
 import { pool } from '../config/db';
 import bcrypt from 'bcrypt';
 import { RowDataPacket, ResultSetHeader } from 'mysql2';
+import { UserRole } from '../types/enums';
 
 export const authService = {
     // Registra un nuovo utente
@@ -34,7 +35,7 @@ export const authService = {
             nome,
             cognome,
             email,
-            ruolo: '0', // Default studente
+            ruolo: UserRole.STUDENT, // Default studente
             xp_totali: 0
         };
 
