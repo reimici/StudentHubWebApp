@@ -1,14 +1,22 @@
-<script setup>
+<script setup lang="ts">
 import NavBar from '../components/NavBar.vue'
 import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import api from '../api/axios'
 
+interface ExamRow {
+  nome: string;
+  voto: string | number;
+  lode: boolean;
+  data: string;
+  cfu: string | number;
+}
+
 const router = useRouter()
 const loading = ref(false)
 const errorMsg = ref('')
 
-const rows = ref([
+const rows = ref<ExamRow[]>([
   { nome: '', voto: '', lode: false, data: '', cfu: '' }
 ])
 
@@ -26,13 +34,12 @@ const addRow = () => {
     rows.value.push({ nome: '', voto: '', lode: false, data: '', cfu: '' })
   }
 }
-// ... (rest of the script)
 
-
-const removeRow = (index) => {
+const removeRow = (index: number) => {
   if (rows.value.length > 1) {
     rows.value.splice(index, 1)
   } else {
+    // Reset first row if it's the only one
     rows.value[0] = { nome: '', voto: '', lode: false, data: '', cfu: '' }
   }
 }
@@ -48,40 +55,32 @@ const submitExams = async () => {
       if (!row.nome || !row.voto || !row.data || !row.cfu) {
         throw new Error("Compila tutti i campi di tutte le righe.")
       }
-      if (row.voto < 18 || row.voto > 30) {
+      
+      const votoNum = Number(row.voto)
+      const cfuNum = Number(row.cfu)
+
+      if (votoNum < 18 || votoNum > 30) {
         throw new Error(`Il voto ${row.voto} non è valido (18-30).`)
       }
-      if (row.cfu == 0 || row.cfu > 48) {
+      if (cfuNum <= 0 || cfuNum > 48) {
         throw new Error(`I CFU ${row.cfu} non sono validi (1-48).`)
       }
       
       payload.push({
         nome: row.nome,
-        voto: parseInt(row.voto),
+        voto: votoNum,
         lode: row.lode,
-        cfu: parseInt(row.cfu),
+        cfu: cfuNum,
         data: row.data
       })
     }
 
     // 2. INVIO RICHIESTA
-    const response = await api.post('/exams', payload)
-
-    // --- NUOVA LOGICA GESTIONE BADGE ---
-    const nuoviBadge = response.data.nuovi_badge || []
-
-   /* if (nuoviBadge.length > 0) {
-      // Costruiamo un messaggio per l'alert
-      const nomiBadge = nuoviBadge.map(b => b.nome).join(', ')
-      const totaleXpBadge = nuoviBadge.reduce((sum, b) => sum + b.xp_valore, 0)
-      
-      alert(`🎉 COMPLIMENTI! Hai sbloccato ${nuoviBadge.length} nuovi obiettivi:\n\n${nomiBadge}\n\nHai guadagnato +${totaleXpBadge} XP extra!`)
-    } */
-    // -----------------------------------
+    await api.post('/exams', payload)
 
     router.push('/career')
 
-  } catch (error) {
+  } catch (error: any) {
     console.error(error)
     errorMsg.value = error.response?.data?.message || error.message || "Errore durante il salvataggio."
   } finally {

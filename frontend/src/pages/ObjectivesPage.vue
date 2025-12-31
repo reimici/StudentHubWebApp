@@ -1,13 +1,14 @@
-<script setup>
+<script setup lang="ts">
 import NavBar from '../components/NavBar.vue'
 import { ref, onMounted } from 'vue'
 import api from '../api/axios'
 import { useAuthStore } from '../stores/auth'
+import type { User, Badge } from '../types'
 
 const authStore = useAuthStore()
 const loading = ref(true)
-const leaderboard = ref([])
-const objectives = ref([])
+const leaderboard = ref<User[]>([])
+const objectives = ref<Badge[]>([])
 const errorMsg = ref('')
 
 const fetchData = async () => {
@@ -22,8 +23,8 @@ const fetchData = async () => {
 
     leaderboard.value = lbRes.data.leaderboard
 
-    const unlockedIds = new Set(myBadgesRes.data.map(b => b.id_obiettivo))
-    objectives.value = allBadgesRes.data.map(badge => ({
+    const unlockedIds = new Set(myBadgesRes.data.map((b: any) => b.id_obiettivo))
+    objectives.value = allBadgesRes.data.map((badge: any) => ({
       ...badge,
       sbloccato: unlockedIds.has(badge.id)
     }))

@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import type { RouteRecordRaw } from "vue-router";
 import { useAuthStore } from "../stores/auth";
 
 // Import delle pagine
@@ -21,7 +22,7 @@ import TermsPage from "../pages/TermsPage.vue";
 
 const AdminPage = () => import("../pages/AdminPage.vue");
 
-const routes = [
+const routes: Array<RouteRecordRaw> = [
   // 1. ROTTE GUEST (Solo per non loggati -> Redirect a Home se loggato)
   {
     path: "/",
@@ -115,7 +116,8 @@ const router = createRouter({
 });
 
 // --- NAVIGATION GUARD ---
-router.beforeEach((to, from, next) => {
+// --- NAVIGATION GUARD ---
+router.beforeEach((to, _from, next) => {
   const authStore = useAuthStore();
   const isAuthenticated = authStore.isAuthenticated;
   const userRole = authStore.user?.ruolo; // '0', '1', '2'
@@ -154,7 +156,7 @@ router.beforeEach((to, from, next) => {
       "Objectives",
       "Settings",
     ];
-    if (studentRoutes.includes(to.name)) {
+    if (to.name && studentRoutes.includes(to.name as string)) {
       return next("/admin");
     }
   }

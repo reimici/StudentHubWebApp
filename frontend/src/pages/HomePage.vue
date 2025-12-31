@@ -1,14 +1,15 @@
-<script setup>
+<script setup lang="ts">
 import NavBar from '../components/NavBar.vue'
 import { useRouter } from 'vue-router'
 import { ref, onMounted, computed } from 'vue'
 import api from '../api/axios'
+import type { GamificationStatus } from '../types'
 
 const router = useRouter()
 
 // Stato reattivo per i dati di gamification
 const loading = ref(true)
-const gamificationData = ref({
+const gamificationData = ref<GamificationStatus>({
   xp_totali: 0,
   livello: {
     numero: 0,
@@ -27,7 +28,7 @@ const progressWidth = computed(() => {
 
 onMounted(async () => {
   try {
-    const response = await api.get('/gamification/status')
+    const response = await api.get<GamificationStatus>('/gamification/status')
     gamificationData.value = response.data
   } catch (error) {
     console.error("Errore recupero livello:", error)

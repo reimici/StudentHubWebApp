@@ -1,8 +1,19 @@
 import { defineStore } from "pinia";
 import api from "../api/axios";
 
+interface Preferences {
+  tema_voti: string;
+  rgb_soglia_bassa: number;
+  rgb_soglia_alta: number;
+}
+
+interface SettingsState {
+  preferences: Preferences;
+  loaded: boolean;
+}
+
 export const useSettingsStore = defineStore("settings", {
-  state: () => ({
+  state: (): SettingsState => ({
     preferences: {
       tema_voti: "DEFAULT",
       rgb_soglia_bassa: 18,
@@ -25,7 +36,7 @@ export const useSettingsStore = defineStore("settings", {
     },
 
     // Aggiorna le impostazioni nel backend e nello store
-    async updateSettings(newSettings) {
+    async updateSettings(newSettings: Partial<Preferences>): Promise<boolean> {
       try {
         await api.put("/settings", newSettings);
         this.preferences = { ...this.preferences, ...newSettings };

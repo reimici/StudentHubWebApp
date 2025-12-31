@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import NavBar from '../components/NavBar.vue'
 import { useSettingsStore } from '../stores/settings'
 import { ref, onMounted, reactive } from 'vue'
@@ -10,7 +10,13 @@ const settingsStore = useSettingsStore()
 const saving = ref(false)
 const message = ref('')
 
-const form = reactive({
+interface SettingsForm {
+  tema_voti: string;
+  rgb_soglia_bassa: number;
+  rgb_soglia_alta: number;
+}
+
+const form = reactive<SettingsForm>({
   tema_voti: 'DEFAULT',
   rgb_soglia_bassa: 18,
   rgb_soglia_alta: 27
@@ -18,7 +24,9 @@ const form = reactive({
 
 onMounted(async () => {
   await settingsStore.fetchSettings()
-  Object.assign(form, settingsStore.preferences)
+  if (settingsStore.preferences) {
+    Object.assign(form, settingsStore.preferences)
+  }
 })
 
 const save = async () => {

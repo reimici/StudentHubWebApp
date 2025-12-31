@@ -1,22 +1,28 @@
 import { defineStore } from "pinia";
 import api from "../api/axios";
-import { useRouter } from "vue-router";
+import { User } from "../types";
+
+interface AuthState {
+  user: User | null;
+  loading: boolean;
+  error: string | null;
+}
 
 export const useAuthStore = defineStore("auth", {
-  state: () => ({
+  state: (): AuthState => ({
     // Il token è nei cookie HttpOnly, qui teniamo solo i dati utente
-    user: JSON.parse(localStorage.getItem("user")) || null,
+    user: JSON.parse(localStorage.getItem("user") || "null"),
     loading: false,
     error: null,
   }),
 
   getters: {
-    isAuthenticated: (state) => !!state.user,
+    isAuthenticated: (state): boolean => !!state.user,
   },
 
   actions: {
     // LOGIN
-    async login(email, password) {
+    async login(email: string, password: string): Promise<boolean> {
       this.loading = true;
       this.error = null;
       try {
@@ -27,7 +33,7 @@ export const useAuthStore = defineStore("auth", {
         this.user = response.data.user;
         localStorage.setItem("user", JSON.stringify(this.user));
         return true; // Login riuscito
-      } catch (err) {
+      } catch (err: any) {
         this.error = err.response?.data?.message || "Login fallito";
         return false;
       } finally {
@@ -36,7 +42,7 @@ export const useAuthStore = defineStore("auth", {
     },
 
     // REGISTER
-    async register(userData) {
+    async register(userData: any): Promise<boolean> {
       this.loading = true;
       this.error = null;
       try {
@@ -46,7 +52,7 @@ export const useAuthStore = defineStore("auth", {
         this.user = response.data.user;
         localStorage.setItem("user", JSON.stringify(this.user));
         return true;
-      } catch (err) {
+      } catch (err: any) {
         this.error = err.response?.data?.message || "Registrazione fallita";
         return false;
       } finally {
@@ -55,7 +61,7 @@ export const useAuthStore = defineStore("auth", {
     },
 
     // LOGOUT
-    async logout() {
+    async logout(): Promise<void> {
       try {
         await api.post("/auth/logout");
       } catch (err) {

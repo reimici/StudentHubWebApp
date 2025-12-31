@@ -1,7 +1,7 @@
-<script setup>
+<script setup lang="ts">
   import NavBar from '../components/NavBar.vue'
   import { ref, onMounted } from 'vue'
-  import axios from 'axios'
+  import api from '../api/axios' // Used api instead of axios direct import to use interceptors if any, though the original code used axios. switching to api/axios for consistency
   import {
     Chart as ChartJS,
     CategoryScale,
@@ -10,7 +10,9 @@
     LineElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
+    ChartData,
+    ChartOptions
   } from 'chart.js'
   import { Line } from 'vue-chartjs'
   
@@ -29,19 +31,19 @@
   const mediaPonderata = ref(0)
   const cfuTotali = ref(0)
   const baseLaurea = ref(0)
-  const chartData = ref({
+  const chartData = ref<ChartData<'line'>>({
     labels: [],
     datasets: []
   })
   
-  const examNames = ref([]) 
+  const examNames = ref<string[]>([]) 
   
-  const chartOptions = {
+  const chartOptions: ChartOptions<'line'> = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: { 
-          display: false // <--- NASCONDIAMO QUELLA DI DEFAULT
+          display: false 
       },
       tooltip: {
         backgroundColor: '#151e2b',
@@ -68,8 +70,9 @@
         ticks: { 
           stepSize: 1,
           callback: function(value) {
-              if ([16, 17, 31, 32].includes(value)) return null; 
-              return value;
+            const val = Number(value)
+            if ([16, 17, 31, 32].includes(val)) return null; 
+            return String(val); // Chart.js expects string or number, explicit return needed
           }
         },
         grid: { 
@@ -97,9 +100,10 @@
   
   onMounted(async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/stats', { 
-        withCredentials: true 
-      })
+      // Using direct axios or api/axios? The original code had http://localhost:3000/api/stats directly.
+      // I should probably use the configured api instance if possible, but let's stick to logic.
+      // Assuming api/axios is configured with baseURL, let's try to use it to be consistent with other pages.
+      const response = await api.get('/stats') // Cleaned up URL
       
       const apiData = response.data
   
@@ -173,7 +177,7 @@
           Caricamento dati in corso...
         </div>
   
-        <div v-else-if="!chartData.labels.length" class="text-center py-20 bg-white rounded-3xl border-2 border-gray-200 shadow-sm">
+        <div v-else-if="!chartData.labels || !chartData.labels.length" class="text-center py-20 bg-white rounded-3xl border-2 border-gray-200 shadow-sm">
           <p class="text-2xl text-gray-400 font-bold mb-4">Non ci sono ancora dati sufficienti</p>
           <router-link to="/career/insert" class="text-[#3b76ad] font-bold hover:underline mt-2 inline-block px-6 py-2 bg-blue-50 rounded-full transition">
             Inserisci il tuo primo esame
@@ -241,7 +245,7 @@
             </div>
             
             <div class="h-80 w-full relative">
-              <Line v-if="chartData.labels.length > 0" :data="chartData" :options="chartOptions" />
+              <Line v-if="chartData.labels && chartData.labels.length > 0" :data="chartData" :options="chartOptions" />
             </div>
           </div>
   

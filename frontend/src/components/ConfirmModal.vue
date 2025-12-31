@@ -1,20 +1,14 @@
-<script setup>
-defineProps({
-    show: {
-        type: Boolean,
-        required: true
-    },
-    title: {
-        type: String,
-        default: 'Conferma Azione'
-    },
-    message: {
-        type: String,
-        default: ''
-    }
-})
+<script setup lang="ts">
+defineProps<{
+  show: boolean
+  title?: string
+  message?: string
+}>()
 
-defineEmits(['confirm', 'cancel'])
+defineEmits<{
+  (e: 'confirm'): void
+  (e: 'cancel'): void
+}>()
 </script>
 
 <template>

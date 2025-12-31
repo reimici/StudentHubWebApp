@@ -1,14 +1,15 @@
-<script setup>
+<script setup lang="ts">
 import NavBar from '../components/NavBar.vue'
 import { useRouter } from 'vue-router'
 import { ref, onMounted, watch } from 'vue'
 import api from '../api/axios'
 import { useSettingsStore } from '../stores/settings'
+import type { Exam } from '../types'
 
 const router = useRouter()
 const settingsStore = useSettingsStore()
 
-const exams = ref([])
+const exams = ref<Exam[]>([])
 const loading = ref(true)
 const errorMessage = ref('')
 const successMessage = ref('')
@@ -17,30 +18,30 @@ const successMessage = ref('')
 const filters = ref({
   sortBy: 'data',    // data, voto, cfu
   order: 'DESC',     // ASC, DESC
-  year: 'all'        // all, 2025, 2024...
+  year: 'all' as string | number // all, 2025, 2024...
 })
 
-const availableYears = ref([])
+const availableYears = ref<number[]>([])
 const currentYear = new Date().getFullYear()
 for (let i = 0; i < 5; i++) {
   availableYears.value.push(currentYear - i)
 }
 
 // --- STATE PER MENU E MODALI ---
-const activeDropdownId = ref(null)
+const activeDropdownId = ref<number | string | null>(null)
 const showEditModal = ref(false)
 const showDeleteModal = ref(false)
-const examToEdit = ref(null)
-const examToDeleteId = ref(null)
+const examToEdit = ref<Exam | null>(null)
+const examToDeleteId = ref<number | string | null>(null)
 
 // --- FORMATTAZIONE E COLORI ---
-const formatDate = (dateString) => {
+const formatDate = (dateString: string) => {
   if (!dateString) return ''
   const date = new Date(dateString)
   return new Intl.DateTimeFormat('it-IT').format(date)
 }
 
-const getBadgeColor = (voto) => {
+const getBadgeColor = (voto: number) => {
   const prefs = settingsStore.preferences;
   if (prefs.tema_voti === 'DEFAULT') {
     return 'bg-primary text-white'; 
@@ -51,7 +52,7 @@ const getBadgeColor = (voto) => {
 }
 
 // --- GESTIONE MENU DROP DOWN ---
-const toggleDropdown = (id, event) => {
+const toggleDropdown = (id: number | string, event: Event) => {
     event.stopPropagation()
     if (activeDropdownId.value === id) {
         activeDropdownId.value = null
@@ -65,7 +66,7 @@ const closeDropdowns = () => {
 }
 
 // --- LOGICA MODIFICA ---
-const openEditModal = (exam) => {
+const openEditModal = (exam: Exam) => {
     // Clone oggetto per non modificare la view mentre edito
     
     // Data: Usa i metodi locali per ottenere la data corretta, evitando shift di fuso orario
@@ -102,14 +103,14 @@ const saveExam = async () => {
         setTimeout(() => successMessage.value = '', 3000);
         
         fetchExams(); // Ricarica lista per aggiornare XP totali e ordinamento
-    } catch (error) {
+    } catch (error: any) {
         console.error("Errore aggiornamento:", error);
         alert(error.response?.data?.message || "Errore durante l'aggiornamento");
     }
 }
 
 // --- LOGICA ELIMINAZIONE ---
-const confirmDelete = (id) => {
+const confirmDelete = (id: number | string) => {
     examToDeleteId.value = id
     showDeleteModal.value = true
     closeDropdowns()
@@ -143,7 +144,7 @@ const navigateToInsert = () => {
 const fetchExams = async () => {
   loading.value = true
   try {
-    const response = await api.get('/exams', {
+    const response = await api.get<Exam[]>('/exams', {
       params: {
         sortBy: filters.value.sortBy,
         order: filters.value.order,
@@ -151,7 +152,7 @@ const fetchExams = async () => {
       }
     })
     exams.value = response.data
-  } catch (error) {
+  } catch (error: any) {
     console.error("Errore recupero dati:", error)
     errorMessage.value = "Impossibile caricare i dati."
     if (error.response && error.response.status === 401) {
@@ -169,8 +170,8 @@ watch(filters, () => {
 
 // Watcher: Se sto modificando e il voto scende sotto 30, tolgo la lode
 watch(() => examToEdit.value?.voto, (newVal) => {
-    if (newVal < 30 && examToEdit.value?.lode) {
-        examToEdit.value.lode = false;
+    if (newVal && newVal < 30 && examToEdit.value?.lode) {
+        examToEdit.value.lode = false; // or 0
     }
 })
 

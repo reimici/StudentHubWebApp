@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import NavBar from '../components/NavBar.vue'
 import ConfirmModal from '../components/ConfirmModal.vue'
 import UserTableList from '../components/UserTableList.vue'
@@ -6,14 +6,14 @@ import { ref, onMounted, computed } from 'vue'
 import api from '../api/axios'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
+import type { User } from '../types'
 
 const router = useRouter()
 const authStore = useAuthStore()
 const isAdminSuper = computed(() => authStore.user?.ruolo === '2')
 
-const users = ref([])
+const users = ref<User[]>([])
 const loading = ref(true)
-const actionLoading = ref(false)
 const errorMessage = ref('')
 const successMessage = ref('')
 const searchQuery = ref('')
@@ -30,9 +30,9 @@ const itemsPerPage = ref(20)
 const showModal = ref(false)
 const modalTitle = ref('')
 const modalMessage = ref('')
-const pendingAction = ref(null)
+const pendingAction = ref<(() => Promise<void>) | null>(null)
 
-const openConfirmModal = (title, message, action) => {
+const openConfirmModal = (title: string, message: string, action: () => Promise<void>) => {
     modalTitle.value = title
     modalMessage.value = message
     pendingAction.value = action
@@ -68,7 +68,7 @@ const fetchUsers = async (page = 1) => {
         totalPages.value = response.data.meta.totalPages
         currentPage.value = response.data.meta.currentPage
         
-    } catch (error) {
+    } catch (error: any) {
         console.error("Errore admin:", error)
         errorMessage.value = "Accesso Negato o Errore Server."
         if (error.response && (error.response.status === 401 || error.response.status === 403)) {
@@ -79,13 +79,49 @@ const fetchUsers = async (page = 1) => {
     }
 }
 
-const handlePageChange = (newPage) => {
+const handlePageChange = (newPage: number) => {
     if (newPage > 0 && newPage <= totalPages.value) {
         fetchUsers(newPage)
     }
 }
 
-// ... action handlers ...
+// Handler Actions from UserTableList
+const handleUpdateRole = async (user: User, newRole: string) => {
+  openConfirmModal(
+    'Conferma Modifica Ruolo',
+    `Sei sicuro di voler cambiare il ruolo di ${user.nome} ${user.cognome}?`,
+    async () => {
+        try {
+            await api.put(`/admin/users/${user.id}/role`, { nuovo_ruolo: newRole })
+            successMessage.value = "Ruolo aggiornato con successo"
+            setTimeout(() => successMessage.value = '', 3000)
+            fetchUsers(currentPage.value)
+        } catch (error) {
+            console.error(error)
+            errorMessage.value = "Errore durante l'aggiornamento del ruolo"
+        }
+    }
+  )
+}
+
+const handleDeleteUser = async (user: User) => {
+  openConfirmModal(
+    'Conferma Eliminazione',
+    `Sei sicuro di voler eliminare l'utente ${user.nome} ${user.cognome}? Questa azione non è reversibile.`,
+    async () => {
+        try {
+            await api.delete(`/admin/users/${user.id}`)
+            successMessage.value = "Utente eliminato con successo"
+            setTimeout(() => successMessage.value = '', 3000)
+            fetchUsers(currentPage.value)
+        } catch (error) {
+            console.error(error)
+            errorMessage.value = "Errore durante l'eliminazione dell'utente"
+        }
+    }
+  )
+}
+
 
 // --- COMPUTED PROPERTIES PER LE STATISTICHE ---
 // Ora usiamo i dati reali dal backend, indipendentemente dalla pagina corrente

@@ -1,36 +1,26 @@
-<script setup>
-import { ref, computed } from 'vue'
+<script setup lang="ts">
+import { ref } from 'vue'
 import { useAuthStore } from '../stores/auth'
+import { User } from '../types'
 
-const props = defineProps({
-    users: {
-        type: Array,
-        required: true
-    },
-    isAdminSuper: {
-        type: Boolean,
-        default: false
-    },
-    searchQuery: {
-        type: String,
-        default: ''
-    },
-    currentPage: {
-        type: Number,
-        default: 1
-    },
-    totalPages: {
-        type: Number,
-        default: 1
-    }
-})
+const props = defineProps<{
+  users: User[]
+  isAdminSuper: boolean
+  searchQuery: string
+  currentPage: number
+  totalPages: number
+}>()
 
-const emit = defineEmits(['update-role', 'delete-user', 'change-page'])
+const emit = defineEmits<{
+  (e: 'update-role', user: User, newRole: string): void
+  (e: 'delete-user', user: User): void
+  (e: 'change-page', page: number): void
+}>()
 
 const authStore = useAuthStore()
-const activeDropdownId = ref(null)
+const activeDropdownId = ref<number | string | null>(null)
 
-const toggleDropdown = (id, event) => {
+const toggleDropdown = (id: number | string, event: Event) => {
     event.stopPropagation()
     if (activeDropdownId.value === id) {
         activeDropdownId.value = null
@@ -51,7 +41,7 @@ const UserRole = {
     SUPER_ADMIN: '2'
 }
 
-const getRoleBadge = (role) => {
+const getRoleBadge = (role: string) => {
   switch(role) {
     case UserRole.SUPER_ADMIN: return { label: 'Super Admin', class: 'bg-green-100 text-green-700 border-green-200' }
     case UserRole.ADMIN: return { label: 'Admin', class: 'bg-blue-100 text-blue-700 border-blue-200' }
@@ -59,7 +49,7 @@ const getRoleBadge = (role) => {
   }
 }
 
-const formatDate = (dateString) => {
+const formatDate = (dateString?: string) => {
   if (!dateString) return '-'
   return new Date(dateString).toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' })
 }
@@ -115,7 +105,7 @@ defineExpose({ closeDropdowns })
                     <!-- MENU AZIONI (Solo Super Admin) -->
                     <td v-if="isAdminSuper" class="p-4 text-center relative">
                     <!-- Non mostriamo azioni per altri Super Admin o se stessi -->
-                    <div v-if="user.ruolo !== UserRole.SUPER_ADMIN && user.id !== authStore.user.id">
+                    <div v-if="user.ruolo !== UserRole.SUPER_ADMIN && user.id !== authStore.user?.id">
                          <button 
                             @click="toggleDropdown(user.id, $event)" 
                             class="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
@@ -135,7 +125,7 @@ defineExpose({ closeDropdowns })
                             <div class="py-1">
                                 <!-- Promuovi/Retrocedi -->
                                 <button 
-                                    @click="$emit('update-role', user); closeDropdowns()"
+                                    @click="$emit('update-role', user, user.ruolo === UserRole.STUDENT ? UserRole.ADMIN : UserRole.STUDENT); closeDropdowns()"
                                     class="w-full px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-primary flex items-center gap-2 focus:outline-none focus:bg-blue-50"
                                 >
                                     <svg v-if="user.ruolo === UserRole.STUDENT" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 11l3-3m0 0l3 3m-3-3v8m0-13a9 9 0 110 18 9 9 0 010-18z"></path></svg>
@@ -146,7 +136,7 @@ defineExpose({ closeDropdowns })
                                 <!-- Elimina (Solo per Admin role='1') -->
                                 <button 
                                     v-if="user.ruolo === UserRole.ADMIN"
-                                    @click="$emit('delete-user', user.id); closeDropdowns()"
+                                    @click="$emit('delete-user', user); closeDropdowns()"
                                     class="w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2 border-t border-gray-100 focus:outline-none focus:bg-red-50"
                                 >
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
