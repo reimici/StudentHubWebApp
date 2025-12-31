@@ -140,10 +140,10 @@ StudentHub/
 │   │   ├── router/            # Configurazione rotte
 │   │   ├── stores/            # Gestione stato (Pinia)
 │   │   ├── App.vue            # Componente Root
-│   │   ├── main.js            # Entry point applicazione frontend
+│   │   ├── main.ts            # Entry point applicazione frontend
 │   │   └── style.css          # Stili globali e configurazione Tailwind
 │   ├── package.json
-│   └── vite.config.js
+│   └── vite.config.ts
 │
 ├── docker-compose.yml         # Configurazione Container
 └── README.md                  # Documentazione progetto
