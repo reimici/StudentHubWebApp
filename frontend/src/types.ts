@@ -31,3 +31,12 @@ export interface GamificationStatus {
     prossima_soglia: number;
   };
 }
+
+export interface Badge {
+  id: number | string;
+  nome: string;
+  descrizione: string;
+  xp_valore: number;
+  icona?: string;
+  sbloccato?: boolean;
+}

@@ -6,7 +6,7 @@ import { User } from '../types'
 const props = defineProps<{
   users: User[]
   isAdminSuper: boolean
-  searchQuery: string
+
   currentPage: number
   totalPages: number
 }>()
@@ -152,7 +152,7 @@ defineExpose({ closeDropdowns })
                     <td colspan="6" class="p-8 text-center text-gray-500">
                     <div class="flex flex-col items-center">
                         <svg class="w-10 h-10 text-gray-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                        <span>Nessun utente trovato {{ searchQuery ? 'per "' + searchQuery + '"' : '' }}</span>
+                        <span>Nessun utente trovato</span>
                     </div>
                     </td>
                 </tr>

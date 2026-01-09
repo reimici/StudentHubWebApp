@@ -16,15 +16,15 @@ const fetchData = async () => {
   errorMsg.value = ''
   try {
     const [lbRes, allBadgesRes, myBadgesRes] = await Promise.all([
-      api.get('/users/leaderboard'),
-      api.get('/gamification/badges'),
-      api.get('/gamification/my-badges')
+      api.get<{ leaderboard: User[] }>('/users/leaderboard'),
+      api.get<Badge[]>('/gamification/badges'),
+      api.get<any[]>('/gamification/my-badges')
     ])
 
     leaderboard.value = lbRes.data.leaderboard
 
     const unlockedIds = new Set(myBadgesRes.data.map((b: any) => b.id_obiettivo))
-    objectives.value = allBadgesRes.data.map((badge: any) => ({
+    objectives.value = allBadgesRes.data.map((badge: Badge) => ({
       ...badge,
       sbloccato: unlockedIds.has(badge.id)
     }))

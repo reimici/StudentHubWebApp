@@ -16,7 +16,7 @@ const users = ref<User[]>([])
 const loading = ref(true)
 const errorMessage = ref('')
 const successMessage = ref('')
-const searchQuery = ref('')
+
 const totalUsersCount = ref(0) 
 const totalStudentsCount = ref(0)
 const totalAdminsCount = ref(0)
@@ -55,7 +55,7 @@ const confirmAction = async () => {
 const fetchUsers = async (page = 1) => {
     loading.value = true
     try {
-        const response = await api.get(`/admin/users?page=${page}&limit=${itemsPerPage.value}`)
+        const response = await api.get<{ data: User[], meta: any }>(`/admin/users?page=${page}&limit=${itemsPerPage.value}`)
         
         // Risposta paginata: { data: [], meta: { ... } }
         users.value = response.data.data
@@ -129,19 +129,6 @@ const totalUsers = computed(() => totalUsersCount.value)
 const totalStudents = computed(() => totalStudentsCount.value)
 const totalAdmins = computed(() => totalAdminsCount.value)
 
-// --- FILTRO RICERCA ---
-// La ricerca lato client funziona solo sulla pagina corrente.
-// Se si vuole ricerca globale, bisogna implementarla lato backend (es. /api/admin/users?search=...).
-// Manteniamo il filtro client-side per ora sulla pagina corrente.
-const filteredUsers = computed(() => {
-  if (!searchQuery.value) return users.value
-  const query = searchQuery.value.toLowerCase()
-  return users.value.filter(user => 
-    user.nome.toLowerCase().includes(query) || 
-    user.cognome.toLowerCase().includes(query) ||
-    user.email.toLowerCase().includes(query)
-  )
-})
 
 // --- CARICAMENTO DATI ---
 onMounted(() => {
@@ -165,18 +152,6 @@ onMounted(() => {
           <div>
             <h1 class="text-4xl font-bold text-secondary">Gestione Utenti</h1>
             <p class="text-gray-600 mt-1">Pannello di controllo per la gestione degli iscritti alla piattaforma.</p>
-          </div>
-          
-          <div class="relative w-full md:w-72">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-              <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-            </span>
-            <input 
-              v-model="searchQuery" 
-              type="text" 
-              placeholder="Cerca utente..." 
-              class="w-full py-2 pl-10 pr-4 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition"
-            >
           </div>
         </div>
       </div>
@@ -237,9 +212,8 @@ onMounted(() => {
 
         <!-- Tabella Utenti Refactored -->
         <UserTableList 
-            :users="filteredUsers" 
-            :is-admin-super="isAdminSuper" 
-            :search-query="searchQuery"
+            :users="users" 
+            :is-admin-super="isAdminSuper"
             :current-page="currentPage"
             :total-pages="totalPages"
             @update-role="handleUpdateRole"
