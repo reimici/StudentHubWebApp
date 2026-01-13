@@ -22,11 +22,11 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 -- Dump dei dati per la tabella `utenti`
 INSERT INTO `utenti` (`id`, `email`, `password`, `nome`, `cognome`, `ruolo`, `xp_totali`, `created_at`) VALUES
-(1, 'reimici@studenthub.com', '$2b$10$UuWz9YjVnFj1.JpX.kZ2..1.X8.X89X8X8X8X8X8X8X8X8X8X8X8', 'Rei', 'Mici', '0', 1796, '2025-12-23 09:02:23'),
-(2, 'diegoandruccioli@studenthub.com', '$2b$10$UuWz9YjVnFj1.JpX.kZ2..1.X8.X89X8X8X8X8X8X8X8X8X8X8X8', 'Diego', 'Andruccioli', '0', 2682, '2025-12-23 09:02:47'),
-(3, 'giovannimorelli@studenthub.com', '$2b$10$UuWz9YjVnFj1.JpX.kZ2..1.X8.X89X8X8X8X8X8X8X8X8X8X8X8', 'Giovanni', 'Morelli', '0', 2362, '2025-12-23 09:03:04'),
-(4, 'superadmin@studenthub.com', '$2b$10$UuWz9YjVnFj1.JpX.kZ2..1.X8.X89X8X8X8X8X8X8X8X8X8X8X8', 'SuperAdmin', 'SuperAdmin', '2', 0, '2025-12-23 09:03:46'),
-(5, 'admin@studenthub.com', '$2b$10$UuWz9YjVnFj1.JpX.kZ2..1.X8.X89X8X8X8X8X8X8X8X8X8X8X8', 'Admin', 'Admin', '1', 0, '2025-12-23 09:04:00');
+(1, 'reimici@studenthub.com', '$2b$10$3IkM3cY9dqzVBjk/DwNllue6SB3cPYuSTY8GCEQspZtcudtqMp9Em', 'Rei', 'Mici', '0', 1796, '2025-12-23 09:02:23'),
+(2, 'diegoandruccioli@studenthub.com', '$2b$10$3IkM3cY9dqzVBjk/DwNllue6SB3cPYuSTY8GCEQspZtcudtqMp9Em', 'Diego', 'Andruccioli', '0', 2682, '2025-12-23 09:02:47'),
+(3, 'giovannimorelli@studenthub.com', '$2b$10$3IkM3cY9dqzVBjk/DwNllue6SB3cPYuSTY8GCEQspZtcudtqMp9Em', 'Giovanni', 'Morelli', '0', 2362, '2025-12-23 09:03:04'),
+(4, 'superadmin@studenthub.com', '$2b$10$3IkM3cY9dqzVBjk/DwNllue6SB3cPYuSTY8GCEQspZtcudtqMp9Em', 'SuperAdmin', 'SuperAdmin', '2', 0, '2025-12-23 09:03:46'),
+(5, 'admin@studenthub.com', '$2b$10$3IkM3cY9dqzVBjk/DwNllue6SB3cPYuSTY8GCEQspZtcudtqMp9Em', 'Admin', 'Admin', '1', 0, '2025-12-23 09:04:00');
 
 -- Dump dei dati per la tabella `livelli`
 INSERT INTO `livelli` (`id`, `numero`, `nome`, `descrizione`, `xp_min`, `xp_max`) VALUES
